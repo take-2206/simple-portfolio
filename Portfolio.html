@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300&display=swap" rel="stylesheet">
+<style>
+
+.cormorant-upright-light {
+  font-family: "Cormorant Upright", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+  :root{
+    --paper:#FBF5F4;
+    --ink:#2E2624;
+    --line:#E3C9CB;
+    --accent:#B4707C;
+    --accent-soft:#F3DEE0;
+    /* chiều cao thanh menu và chiều cao mỗi "card" (phần còn lại của màn hình) */
+    --bar:calc(3.4rem + env(safe-area-inset-top, 0px));
+    --card-h:calc(100vh - var(--bar));
+  }
+  @supports (height:100dvh){
+    :root{ --card-h:calc(100dvh - var(--bar)); }
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#231C1B; --ink:#F1E4E2; --line:#5B3E42; --accent:#D998A2; --accent-soft:#3B2A2C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#231C1B; --ink:#F1E4E2; --line:#5B3E42; --accent:#D998A2; --accent-soft:#3B2A2C;
+  }
+  *{box-sizing:border-box;}
+  html{height:100%;}
+  body{
+    margin:0; min-height:100%; background:var(--paper); color:var(--ink);
+    font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',Georgia,serif;
+    display:flex; flex-direction:column;
+  }
+
+  /* ---------- Thanh menu: luôn hiện, dính ở đầu trang ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    height:var(--bar);
+    padding:env(safe-area-inset-top, 0px) 1.6rem 0;
+    display:flex; align-items:center; justify-content:space-between; gap:0.8rem;
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+  }
+  .mark{
+    font-size:1.1rem; letter-spacing:0.04em; margin:0; font-weight:400; background:none; border:none;
+    color:var(--ink); font-family:inherit; cursor:pointer; padding:0; white-space:nowrap;
+  }
+  .mark span{color:var(--accent);}
+  nav{display:flex; gap:0.4rem;}
+  nav button{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.86rem; letter-spacing:0.03em;
+    padding:0.5rem 1rem; background:transparent; color:var(--ink); border:1px solid transparent; border-radius:999px;
+    cursor:pointer; white-space:nowrap; transition:background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  nav button:hover, nav button:focus-visible{border-color:var(--accent);}
+  nav button[aria-current="page"]{background:var(--accent); color:var(--paper);}
+  nav button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  @media (max-width:480px){
+    .topbar{ padding-left:1rem; padding-right:1rem; }
+    .mark{ font-size:0.9rem; }
+    nav{ gap:0.1rem; }
+    nav button{ padding:0.4rem 0.55rem; font-size:0.74rem; }
+  }
+
+  main{flex:1;}
+
+  /* ---------- Card: mọi phần đều là một "tấm" cao đúng bằng màn hình, xếp chồng khi cuộn ---------- */
+  .card, .proj-cover, .proj-detail{
+    position:sticky;
+    top:var(--bar);
+    height:var(--card-h);
+    overflow:hidden;
+    border-radius:22px 22px 0 0;
+    box-shadow:0 -14px 40px rgba(0,0,0,.28);
+  }
+  .card{ background:var(--paper); display:flex; padding:2rem 1.6rem; overflow-y:auto; }
+  .card > *{ margin:auto; }   /* căn giữa an toàn: nội dung dài vẫn cuộn được */
+
+  /* ---------- Hero ---------- */
+  #hero{
+    position:sticky; top:var(--bar);
+    height:var(--card-h);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border-radius:0;
+    box-shadow:none;
+    padding:0;
+  }
+  .blob-field{
+    position:absolute; inset:0; filter:blur(70px); opacity:0.85; z-index:0;
+  }
+  .blob{ position:absolute; border-radius:50%; }
+  .blob.b1{ width:40vw; height:40vw; background:var(--accent); top:18%; left:30%; opacity:.55; }
+  .blob.b2{ width:30vw; height:30vw; background:#E8B4B8; top:35%; left:50%; opacity:.5; }
+  .blob.b3{ width:26vw; height:26vw; background:#C9D6DF; top:10%; left:55%; opacity:.4; }
+  .blob.b4{ width:22vw; height:22vw; background:#F0DCA0; top:40%; left:22%; opacity:.35; }
+
+  .hero-word{
+    position:relative; z-index:1;
+    text-align:center;
+    font-size:clamp(2.6rem,9vw,6rem);
+    letter-spacing:0.12em;
+    
+    color:var(--accent);
+    opacity:0.85;
+    margin:0 0 2.2rem;
+    font-family:  "Cormorant Upright", serif;
+  }
+  .hero-foot{
+    position:relative; z-index:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1.4rem;
+  }
+  .hero-id{
+    position:absolute;
+    z-index:1;
+    left:1.8rem;
+    bottom:calc(2.2rem + env(safe-area-inset-bottom, 0px));
+    text-align:left;
+  }
+  .hero-id .name{
+    font-size:1.15rem;
+    font-weight:600;
+    margin:0 0 0.3rem;
+    font-family:  "Cormorant Upright", serif;
+  }
+  .hero-id .line{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:0.82rem;
+    color:var(--ink);
+    opacity:0.6;
+    line-height:1.6;
+    margin:0;
+  }
+  .hero-nav{ display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; }
+  .hero-nav button{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.88rem;
+    padding:0.6rem 1.3rem; background:var(--paper); color:var(--ink); border:1px solid var(--line);
+    border-radius:999px; cursor:pointer; transition:background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .hero-nav button:hover, .hero-nav button:focus-visible{ border-color:var(--accent); color:var(--accent); }
+  .hero-nav button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  /* ---------- Chữ dùng chung ---------- */
+  .page-inner{ max-width:560px; width:100%; }
+
+  .eyebrow{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.8rem; color:var(--accent);
+    margin:0 0 0.5rem; display:flex;
+  }
+  .card h1{ font-size:clamp(1.7rem,4vw,2.3rem); font-weight:400; margin:0 0 1.2rem; line-height:1.35; }
+  p{ font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:1rem; line-height:1.8; margin:0 0 1rem; max-width:46ch; }
+  a{color:var(--accent);}
+  .divider{ width:2.4rem; height:2px; background:var(--accent); margin-bottom:1.4rem; border:none; }
+
+  /* ---------- About ---------- */
+  #about .page-inner{
+    max-width:920px;
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:3rem;
+    align-items:center;
+  }
+  @media (max-width:640px){
+    #about .page-inner{ grid-template-columns:1fr; gap:1.4rem; }
+    .avatar-box{ max-width:150px; aspect-ratio:1/1; }
+  }
+  .avatar-box{
+    aspect-ratio:3/4;
+    border-radius:14px;
+    background:linear-gradient(160deg, var(--accent-soft), var(--line));
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .avatar-box svg{ width:55%; height:55%; opacity:0.9; }
+  .avatar-box svg path, .avatar-box svg circle{ fill:var(--accent); }
+  .hello-wrap{ position:relative; }
+  .hello-ghost{
+    position:absolute; top:-2.4rem; left:-0.2rem;
+    font-size:clamp(3rem,7vw,5rem);
+    font-weight:700;
+    color:var(--accent-soft);
+    z-index:0;
+    user-select:none;
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+  }
+  .hello-title{
+    position:relative; z-index:1;
+    font-size:clamp(2rem,5vw,2.8rem);
+    font-weight:700;
+    margin:0 0 1.4rem;
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+  }
+  .im{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+     font-size:1.3rem; margin:0 0 0.4rem;
+  }
+  .role-line{
+    font-style:italic; opacity:0.75; margin:0 0 1.2rem;
+  }
+
+  /* ---------- Work: card tiêu đề + các card dự án ---------- */
+  .work-intro .page-inner{ text-align:center; }
+  .work-intro .eyebrow{ justify-content:center; }
+  .work-intro h1{ font-size:clamp(2rem,6vw,3.4rem); }
+  .work-intro .divider{ margin-left:auto; margin-right:auto; }
+
+  /* Mỗi project không tạo khối riêng: các card (bìa + chi tiết) là anh em trong <main> để xếp chồng */
+  .proj{ display:contents; }
+  .proj-cover{
+    display:flex;
+    align-items:center;
+    color:#F6ECE9;
+    background:linear-gradient(135deg,#2A2120 0%, #4A2E33 55%, #1D1716 100%);
+  }
+  .proj-cover.alt{
+    background:linear-gradient(135deg,#372226 0%, #5C3A40 55%, #241A1B 100%);
+  }
+  .proj-cover::after{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 75% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 100%);
+    pointer-events:none;
+  }
+  .side-label{
+    position:absolute;
+    left:1.2rem; top:50%;
+    transform:translateY(-50%) rotate(180deg);
+    writing-mode:vertical-rl;
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    opacity:0.55;
+    z-index:1;
+  }
+  .proj-cover-text{
+    position:relative; z-index:1;
+    max-width:460px;
+    padding:2.6rem 2.2rem 2.6rem 3.4rem;
+  }
+  .proj-index{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:2.4rem;
+    font-weight:700;
+    opacity:0.3;
+    margin:0 0 0.2rem;
+  }
+  .proj-title{
+    font-size:clamp(1.9rem,4.5vw,2.6rem);
+    font-weight:700;
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    margin:0 0 0.6rem;
+  }
+  .proj-tagline{
+    font-style:italic;
+    color:var(--accent-soft);
+    font-size:0.95rem;
+    margin:0 0 1rem;
+    padding-bottom:0.8rem;
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+  }
+  .proj-desc{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:0.88rem;
+    line-height:1.8;
+    opacity:0.8;
+    max-width:450ch;
+  }
+
+  /* Bìa có ảnh: ảnh nằm cột trái, tràn sát mép trái/trên/dưới */
+  .proj-cover.has-img{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    align-items:stretch;
+  }
+  .proj-cover.has-img .side-label{ left:auto; right:1.2rem; }
+  .proj-cover.has-img .proj-cover-img{
+    position:relative; z-index:1;
+    overflow:hidden;
+    background:linear-gradient(160deg,#5C3A40,#2A2120);
+  }
+  .proj-cover.has-img .proj-cover-img img{
+    display:block; 
+    width:100%; 
+    height:100%; 
+    object-fit:cover;
+    opacity: 0.5;
+
+  }
+  .proj-cover.has-img .proj-cover-text{
+    align-self:center;
+    padding:2.6rem 3.4rem 2.6rem 3rem;
+  }
+  @media (max-width:760px){
+    .proj-cover.has-img{ grid-template-columns:1fr; grid-template-rows:42% 58%; }
+    .proj-cover.has-img .proj-cover-text{ padding:1.4rem 1.6rem; overflow-y:auto; }
+    .proj-cover.has-img .side-label{ display:none; }
+  }
+
+  /* Bìa Naimu / Poster: ảnh full màn hình, chữ nằm bên phải */
+  .proj-cover.naimu{
+    justify-content:flex-end;          /* đẩy khối chữ sang phải */
+  }
+  .proj-cover.naimu .proj-cover-text{
+    padding:2.6rem 3.4rem 2.6rem 2.2rem;
+  }
+  .proj-cover.naimu .proj-cover-img{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .proj-cover.naimu .proj-cover-img img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  /* lớp tối phía phải để chữ dễ đọc */
+  .proj-cover.naimu .proj-cover-img::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(270deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 100%);
+  }
+  /* Poster: đẩy khối chữ sang trái thêm một chút (tăng/giảm số này) */
+  .proj-cover.poster .proj-cover-text{ margin-right:20rem; }
+  @media (max-width:760px){
+    .proj-cover.naimu{ align-items:flex-end; justify-content:flex-start; }
+    .proj-cover.naimu .proj-cover-text{
+      padding:1.4rem 1.6rem calc(2.4rem + env(safe-area-inset-bottom, 0px)) 3rem;
+      max-height:100%;
+      overflow-y:auto;
+    }
+    .proj-cover.naimu .proj-cover-img::after{
+      background:linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.1) 100%);
+    }
+    .proj-cover.poster .proj-cover-text{ margin-right:0; }
+  }
+
+  /* ---------- Chi tiết dự án ---------- */
+  .proj-detail{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:0;
+    align-items:stretch;
+    background:var(--paper);
+  }
+  .proj-detail.reverse{ direction:rtl; }
+  .proj-detail.reverse > *{ direction:ltr; }
+  @media (max-width:760px){
+    .proj-detail{ grid-template-columns:1fr; grid-template-rows:40% 60%; }
+  }
+
+  /* Chi tiết có gallery: trên là chữ 2 cột, dưới là ảnh sản phẩm */
+  .proj-detail.has-gallery{
+    grid-template-columns:1fr;
+    grid-template-rows:auto minmax(0,1fr);
+  }
+  .proj-detail-concept{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.4rem 4rem;
+    align-items:start;
+    padding:2rem 3rem 1.6rem;
+  }
+  .proj-detail-concept .proj-detail-label{ grid-column:1 / -1; margin-bottom:0.8rem; }
+  .concept-block + .concept-block{ margin-top:1.4rem; }
+  .proj-detail-concept .proj-detail-title{
+    font-size:1rem; color:var(--accent); margin:0 0 0.5rem; letter-spacing:0.02em;
+  }
+  .proj-detail-concept p{ font-size:0.88rem; line-height:1.9; opacity:0.85; max-width:none; margin:0 0 0.5rem; }
+  .proj-gallery{
+    display:grid;
+    grid-template-columns:1fr 1.6fr;
+    grid-template-rows:1fr 1fr;
+    gap:10px;
+    min-height:0;
+    /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
+    padding:0 3rem calc(3rem + env(safe-area-inset-bottom, 0px));
+  }
+  .gallery-item{
+    min-height:0; overflow:hidden;
+    border-radius:12px;
+    background:linear-gradient(160deg, var(--accent-soft), var(--line));
+  }
+  .gallery-item img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .gallery-item.g1{ grid-column:1; grid-row:1; }
+  .gallery-item.g2{ grid-column:1; grid-row:2; }
+  .gallery-item.g3{ grid-column:2; grid-row:1 / span 2; }
+  @media (max-width:760px){
+    .proj-detail.has-gallery{ grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); }
+    .proj-detail-concept{ grid-template-columns:1fr; gap:1rem; padding:1.4rem 1.6rem 1rem; max-height:50dvh; overflow-y:auto; }
+    .concept-block + .concept-block{ margin-top:1rem; }
+    .proj-gallery{ padding:0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
+  }
+  .proj-detail-img{
+    background:linear-gradient(160deg, var(--accent-soft), var(--line));
+    min-height:0;
+  }
+  .proj-detail-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:2rem 3rem;
+    max-width:460px;
+  }
+  @media (max-width:760px){ .proj-detail-text{ padding:1.4rem 1.6rem; max-width:none; overflow-y:auto; } }
+  .proj-detail-label{
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    opacity:0.8;
+    display:block;
+    margin-bottom:1rem;
+  }
+  .proj-detail-title{
+    font-size:1.4rem;
+    font-weight:700;
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    margin:0 0 0.9rem;
+  }
+  .proj-detail-text p{
+    font-size:0.92rem;
+    opacity:0.85;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-item{ font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; display:flex; gap:0.6rem; padding:0.6rem 0; }
+  .contact-item span:first-child{ color:var(--accent); min-width:5.5rem; }
+</style>
+</head>
+<body>
+  <header class="topbar" id="topbar">
+    <button type="button" class="mark" id="logoBtn">Le Ngoc Thanh Truc <span>.</span></button>
+    <nav id="pageNav">
+      <button type="button" data-page="about">About</button>
+      <button type="button" data-page="work">My Work</button>
+      <button type="button" data-page="contact">Contact</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- 1. Hero -->
+    <section id="hero">
+      <div class="blob-field">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <div class="blob b4"></div>
+      </div>
+      <p class="hero-word">PORTFOLIO</p>
+      <div class="hero-foot">
+        <div class="hero-nav">
+          <button type="button" data-page="about">About</button>
+          <button type="button" data-page="work">My Work</button>
+          <button type="button" data-page="contact">Contact</button>
+        </div>
+      </div>
+      <div class="hero-id">
+        <p class="name">LE NGOC THANH TRUC </p>
+        <p class="line">Design</p>
+      </div>
+    </section>
+
+    <!-- 2. About -->
+    <section id="about" class="card">
+      
+        <div class="hello-wrap">
+          <p class="hello-ghost">Xin Chào!</p>
+          <h1 class="hello-title">Xin Chào!</h1>
+          <p class="im">Le Ngoc Thanh Truc</p>
+          <p class="role-line">デザインとITを学ぶ学生｜デジタルクリエイター</p>
+          <p>好奇心から生まれる「やってみたい」を大切にしています。デザインを中心に、ITやテクノロジー、写真など、興味を持ったことを自由に学び、組み合わせながら、新しいアイデアを形にしてきました。人の気持ちに寄り添いながら、見た目だけでなく、使いやすさまで考えたデザインを目指しています。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Work: card tiêu đề -->
+    <section id="work" class="card work-intro">
+      <div class="page-inner">
+        <p class="eyebrow">プロジェクト</p>
+        <h1>代表的なプロジェクト</h1>
+        <hr class="divider">
+      </div>
+    </section>
+
+    <!-- Project 1: Floral joy shop -->
+    <article class="proj">
+      <div class="proj-cover has-img">
+        <span class="side-label">PROJECT&nbsp;|&nbsp;P/01</span>
+        <div class="proj-cover-img">
+          <img src="./img/project/floral-shop.png" alt="Floral joy shop">
+        </div>
+        <div class="proj-cover-text">
+          <p class="proj-index">/01</p>
+          <h2 class="proj-title">Floral joy shop</h2>
+          <!-- <p class="proj-tagline">"Câu tagline ngắn gọn"</p> -->
+          <p class="proj-desc">季節の花々と個性あふれる花束を通して、大切な人へ「よろこび」を届けるフラワーショップ。花を贈る人、受け取る人、そのどちらにも心温まる体験を届けることをコンセプトとしています。</p>
+        </div>
+      </div>
+      <div class="proj-detail has-gallery">
+        <div class="proj-detail-concept">
+          <span class="proj-detail-label">PROJECT | P/02</span>
+          <div class="concept-col">
+            <div class="concept-block">
+              <h3 class="proj-detail-title">概要</h3>
+              <p>Đoạn giải thích chi tiết về dự án: bối cảnh, vai trò của bạn và mục tiêu chính.</p>
+            </div>
+            <div class="concept-block">
+              <h3 class="proj-detail-title">カラー</h3>
+              <img src="img/project/color.png" alt="color logo" style="width: 100%; max-width: 200px; margin-top: 0.5rem;">
+            </div>
+          </div>
+          <div class="concept-col">
+            <div class="concept-block">
+              <h3 class="proj-detail-title">ターゲット</h3>
+              <p>20〜40代を中心とした、特別な日に花を贈りたい人。</p>
+              <p>web: <a href="https://fj-shop.vercel.app/" target="_blank" rel="noopener noreferrer">floral-joy-shop.com</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="proj-gallery">
+          <div class="gallery-item g1"><img src="./img/project/flower.png" alt=""></div>
+          <div class="gallery-item g2"><img src="./img/project/flower-box.png" alt=""></div>
+          <div class="gallery-item g3"><img src="./img/project/fj-web.png" alt=""></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 2: ナイムン店 -->
+    <article class="proj">
+      <div class="proj-cover alt naimu" style="background:#173B4A">
+        <span class="side-label">PROJECT&nbsp;|&nbsp;P/03</span>
+        <div class="proj-cover-img">
+          <img src="./img/project/naimu-bg.png" alt="ナイムン店">
+        </div>
+        <div class="proj-cover-text">
+          <p class="proj-index">/02</p>
+          <h2 class="proj-title">ナイムン店</h2>
+          <p class="proj-tagline">沖縄のドライフルーツ</p>
+          <p class="proj-desc">ナイムンは、沖縄のトロピカルフルーツを使用したドライフルーツブランドです。「ナイムン」は沖縄の方言で「果物」を意味します。期間限定のポップアップストアでは、ドライフルーツやフルーツティーを通して、沖縄ならではの新しい味わいを提案しました。</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 3: craft beer -->
+    <article class="proj">
+      <div class="proj-cover alt has-img">
+        <span class="side-label">PROJECT&nbsp;|&nbsp;P/04</span>
+        <div class="proj-cover-img">
+          <img src="./img/project/logo.png" alt="craft beer">
+        </div>
+        <div class="proj-cover-text">
+          <p class="proj-index">/03</p>
+          <h2 class="proj-title">craft beer</h2>
+          <p class="proj-tagline">今日の疲れを、月明かりと一杯に。</p>
+          <p class="proj-desc">フルーツを使ったクラフトビールブランドのロゴデザインです。チェリー、メロン、レモンなど、それぞれのフレーバーを直感的に感じられるよう、フルーツのモチーフとタイポグラフィを組み合わせました。ポップで親しみやすい印象を持たせながらも、クラフト感のある手描きタッチを取り入れています。</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 4: poster -->
+    <article class="proj">
+      <div class="proj-cover alt naimu poster">
+        <span class="side-label">PROJECT&nbsp;|&nbsp;P/05</span>
+        <div class="proj-cover-img">
+          <img src="./img/project/poster.png" alt="poster">
+        </div>
+        <div class="proj-cover-text">
+          <p class="proj-index">/05</p>
+          <h2 class="proj-title">poster</h2>
+          <p class="proj-tagline">沖縄のドライフルーツ</p>
+          <p class="proj-desc">今回のポスター展のテーマは「オノマトペ」で、季節の思い出を表現することでした。私たちはその中から夏を題材に選びました。<br>日本の夏といえば花火が思い浮かびます。夜空を見上げる少女の姿を通して、「日常の中にある小さな幸せや一瞬の輝きを大切にしてほしい」というメッセージを表現しています。その儚い瞬間も心に刻むことで、永遠の思い出になると考えました。ポスターを通して、あなた自身の大切な“夏の一瞬”を見つけてもらえれば嬉しいです。</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. Contact -->
+    <section id="contact" class="card">
+      <div class="page-inner">
+        <p class="eyebrow">お問い合わせ</p>
+        <h1>お気軽にご連絡ください。</h1>
+        <hr class="divider">
+        <div class="contact-item"><span>Email</span><a href="mailto:lengocthanhtruc09@gmail.com">lengocthanhtruc09@gmail.com</a></div>
+        <div class="contact-item">
+          <span>GitHub</span>
+          <a href="https://github.com/take-2206" target="_blank" rel="noopener noreferrer">github.com/take-2206</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+  const topbar = document.getElementById('topbar');
+  const main = document.getElementById('main');
+  const logoBtn = document.getElementById('logoBtn');
+  const navButtons = document.querySelectorAll('[data-page]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
+  /* Tất cả các card theo đúng thứ tự trên trang */
+  function allCards(){
+    return Array.from(document.querySelectorAll('#hero, #about, #work, .proj-cover, .proj-detail, #contact'));
+  }
+
+  /* Vị trí cuộn để một card vừa "dính" vào dưới thanh menu.
+     Card đang dính có vị trí hiển thị cố định, nên tính từ tổng chiều cao các card phía trước. */
+  function scrollTargetFor(target){
+    let y = main.getBoundingClientRect().top + window.scrollY;
+    for (const c of allCards()){
+      if (c === target) break;
+      y += c.offsetHeight;
+    }
+    return Math.max(0, y - topbar.offsetHeight);
+  }
+
+  function goTo(id){
+    const el = document.getElementById(id);
+    if (!el) return;
+    window.scrollTo({ top: scrollTargetFor(el), behavior: scrollBehavior });
+  }
+
+  navButtons.forEach(btn => btn.addEventListener('click', () => goTo(btn.dataset.page)));
+  logoBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: scrollBehavior }));
+
+  /* Tô sáng mục menu hiện tại: card cuối cùng (About / My Work / Contact) đã chạm thanh menu */
+  const tracked = ['about', 'work', 'contact'].map(id => document.getElementById(id));
+  const pageButtons = document.querySelectorAll('#pageNav button');
+  let ticking = false;
+
+  function updateActive(){
+    const line = topbar.offsetHeight + 4;
+    let current = '';
+    tracked.forEach(el => { if (el.getBoundingClientRect().top <= line) current = el.id; });
+    pageButtons.forEach(b => {
+      if (b.dataset.page === current) b.setAttribute('aria-current', 'page');
+      else b.removeAttribute('aria-current');
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking){ ticking = true; requestAnimationFrame(updateActive); }
+  }, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+</script>
+</body>
+</html>
