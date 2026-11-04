@@ -375,7 +375,9 @@
   /* Chi tiết có gallery: trên là chữ 2 cột, dưới là ảnh sản phẩm */
   .proj-detail.has-gallery{
     grid-template-columns:1fr;
-    grid-template-rows:auto minmax(0,1fr);
+    grid-template-rows:auto auto;
+    overflow-y:auto;               /* nội dung dài thì cuộn bên trong card, không bị cắt */
+    margin-bottom:var(--card-h);   /* khoảng cuộn thêm để card này đứng yên lâu hơn trước khi card sau trượt lên */
   }
   .proj-detail-concept{
     display:grid;
@@ -393,7 +395,7 @@
   .proj-gallery{
     display:grid;
     grid-template-columns:1fr 1.6fr;
-    grid-template-rows:1fr 1fr;
+    grid-template-rows:260px 260px;
     gap:10px;
     min-height:0;
     /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
@@ -404,7 +406,7 @@
     border-radius:12px;
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
   }
-  .gallery-item img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .gallery-item img{ display:block; width:100%; height:100%; object-fit:contain; }  /* contain: hiện trọn ảnh web/sản phẩm, không bị cắt */
   .gallery-item.g1{ grid-column:1; grid-row:1; }
   .gallery-item.g2{ grid-column:1; grid-row:2; }
   .gallery-item.g3{ grid-column:2; grid-row:1 / span 2; }
@@ -629,7 +631,7 @@
     let y = main.getBoundingClientRect().top + window.scrollY;
     for (const c of allCards()){
       if (c === target) break;
-      y += c.offsetHeight;
+      y += c.offsetHeight + (parseFloat(getComputedStyle(c).marginBottom) || 0);
     }
     return Math.max(0, y - topbar.offsetHeight);
   }
