@@ -336,6 +336,9 @@
   }
   .play-btn:focus-visible{ outline:2px solid var(--accent-soft); outline-offset:3px; }
 
+  /* Bìa game: ảnh chỉ chiếm nửa trái, hiển thị đầy đủ không bị làm mờ */
+  .proj-cover.half-bg .proj-cover-img img{ opacity:1; object-fit:contain; background:#2A2120; }
+
   /* Bìa có ảnh: ảnh nằm cột trái, tràn sát mép trái/trên/dưới */
   .proj-cover.has-img{
     display:grid;
@@ -613,7 +616,7 @@
 
     <!-- Project 1b: 火鍋の店 (Hot-Pot Game) -->
     <article class="proj">
-      <div class="proj-cover naimu">
+      <div class="proj-cover has-img half-bg">
         <span class="side-label">PROJECT&nbsp;|&nbsp;P/03</span>
         <div class="proj-cover-img">
           <img src="./img/project/hotpot-bg.png" loading="lazy" decoding="async" alt="火鍋の店のゲーム画面イメージ">
