@@ -403,6 +403,7 @@
   .proj-detail.has-gallery{
     grid-template-columns:1fr;
     grid-template-rows:auto auto;
+    align-content:start;           /* không kéo giãn hàng, để ảnh giữ đúng chiều cao thật */
     overflow-y:auto;               /* nội dung dài thì cuộn bên trong card, không bị cắt */
     margin-bottom:var(--card-h);   /* khoảng cuộn thêm để card này đứng yên lâu hơn trước khi card sau trượt lên */
   }
@@ -443,8 +444,8 @@
     .concept-block + .concept-block{ margin-top:1rem; }
     .proj-gallery{ padding:0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
   }
-  .proj-gallery.stack{ grid-template-columns:1fr; grid-template-rows:auto; gap:1.6rem; }
-  .proj-gallery.stack .gallery-item{ height:auto; background:none; }
+  .proj-gallery.stack{ grid-template-columns:1fr; grid-template-rows:auto; gap:1.6rem; min-height:auto; align-content:start; }
+  .proj-gallery.stack .gallery-item{ height:auto; min-height:auto; overflow:visible; background:none; }
   .proj-gallery.stack .gallery-item img{ height:auto; object-fit:contain; border-radius:12px; }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
