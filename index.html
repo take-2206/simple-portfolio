@@ -1,828 +1,1498 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Le Ngoc Thanh Truc | Portfolio</title>
-<meta name="description" content="Le Ngoc Thanh Truc のポートフォリオ。デザインを中心としたプロジェクトを紹介します。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Le Ngoc Thanh Truc | Portfolio</title>
+    <meta
+      name="description"
+      content="Le Ngoc Thanh Truc のポートフォリオ。デザインを中心としたプロジェクトを紹介します。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .cormorant-upright-light {
+        font-family: "Cormorant Upright", serif;
+        font-weight: 300;
+        font-style: normal;
+      }
 
-.cormorant-upright-light {
-  font-family: "Cormorant Upright", serif;
-  font-weight: 300;
-  font-style: normal;
-}
+      :root {
+        --paper: #fbf5f4;
+        --ink: #2e2624;
+        --line: #e3c9cb;
+        --accent: #b4707c;
+        --accent-soft: #f3dee0;
+        /* chiều cao thanh menu và chiều cao mỗi "card" (phần còn lại của màn hình) */
+        --bar: calc(3.4rem + env(safe-area-inset-top, 0px));
+        --card-h: calc(100vh - var(--bar));
+      }
+      @supports (height: 100dvh) {
+        :root {
+          --card-h: calc(100dvh - var(--bar));
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --paper: #231c1b;
+          --ink: #f1e4e2;
+          --line: #5b3e42;
+          --accent: #d998a2;
+          --accent-soft: #3b2a2c;
+        }
+      }
+      :root[data-theme="dark"] {
+        --paper: #231c1b;
+        --ink: #f1e4e2;
+        --line: #5b3e42;
+        --accent: #d998a2;
+        --accent-soft: #3b2a2c;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif;
+        display: flex;
+        flex-direction: column;
+      }
 
+      /* ---------- Thanh menu: luôn hiện, dính ở đầu trang ---------- */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        height: var(--bar);
+        padding: env(safe-area-inset-top, 0px) 1.6rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+      .mark {
+        font-size: 1.1rem;
+        letter-spacing: 0.04em;
+        margin: 0;
+        font-weight: 400;
+        background: none;
+        border: none;
+        color: var(--ink);
+        font-family: inherit;
+        cursor: pointer;
+        padding: 0;
+        white-space: nowrap;
+      }
+      .mark span {
+        color: var(--accent);
+      }
+      nav {
+        display: flex;
+        gap: 0.4rem;
+      }
+      nav button {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.86rem;
+        letter-spacing: 0.03em;
+        padding: 0.5rem 1rem;
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid transparent;
+        border-radius: 999px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          background 0.18s ease,
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+      nav button:hover,
+      nav button:focus-visible {
+        border-color: var(--accent);
+      }
+      nav button[aria-current="page"] {
+        background: var(--accent);
+        color: var(--paper);
+      }
+      nav button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      @media (max-width: 480px) {
+        .topbar {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+        .mark {
+          font-size: 0.9rem;
+        }
+        nav {
+          gap: 0.1rem;
+        }
+        nav button {
+          padding: 0.4rem 0.55rem;
+          font-size: 0.74rem;
+        }
+      }
 
-  :root{
-    --paper:#FBF5F4;
-    --ink:#2E2624;
-    --line:#E3C9CB;
-    --accent:#B4707C;
-    --accent-soft:#F3DEE0;
-    /* chiều cao thanh menu và chiều cao mỗi "card" (phần còn lại của màn hình) */
-    --bar:calc(3.4rem + env(safe-area-inset-top, 0px));
-    --card-h:calc(100vh - var(--bar));
-  }
-  @supports (height:100dvh){
-    :root{ --card-h:calc(100dvh - var(--bar)); }
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#231C1B; --ink:#F1E4E2; --line:#5B3E42; --accent:#D998A2; --accent-soft:#3B2A2C;
-    }
-  }
-  :root[data-theme="dark"]{
-    --paper:#231C1B; --ink:#F1E4E2; --line:#5B3E42; --accent:#D998A2; --accent-soft:#3B2A2C;
-  }
-  *{box-sizing:border-box;}
-  html{height:100%;}
-  body{
-    margin:0; min-height:100%; background:var(--paper); color:var(--ink);
-    font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',Georgia,serif;
-    display:flex; flex-direction:column;
-  }
+      main {
+        flex: 1;
+      }
 
-  /* ---------- Thanh menu: luôn hiện, dính ở đầu trang ---------- */
-  .topbar{
-    position:sticky; top:0; z-index:50;
-    height:var(--bar);
-    padding:env(safe-area-inset-top, 0px) 1.6rem 0;
-    display:flex; align-items:center; justify-content:space-between; gap:0.8rem;
-    border-bottom:1px solid var(--line);
-    background:var(--paper);
-  }
-  .mark{
-    font-size:1.1rem; letter-spacing:0.04em; margin:0; font-weight:400; background:none; border:none;
-    color:var(--ink); font-family:inherit; cursor:pointer; padding:0; white-space:nowrap;
-  }
-  .mark span{color:var(--accent);}
-  nav{display:flex; gap:0.4rem;}
-  nav button{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.86rem; letter-spacing:0.03em;
-    padding:0.5rem 1rem; background:transparent; color:var(--ink); border:1px solid transparent; border-radius:999px;
-    cursor:pointer; white-space:nowrap; transition:background .18s ease, color .18s ease, border-color .18s ease;
-  }
-  nav button:hover, nav button:focus-visible{border-color:var(--accent);}
-  nav button[aria-current="page"]{background:var(--accent); color:var(--paper);}
-  nav button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-  @media (max-width:480px){
-    .topbar{ padding-left:1rem; padding-right:1rem; }
-    .mark{ font-size:0.9rem; }
-    nav{ gap:0.1rem; }
-    nav button{ padding:0.4rem 0.55rem; font-size:0.74rem; }
-  }
+      /* ---------- Card: mọi phần đều là một "tấm" cao đúng bằng màn hình, xếp chồng khi cuộn ---------- */
+      .card,
+      .proj-cover,
+      .proj-detail {
+        position: sticky;
+        top: var(--bar);
+        height: var(--card-h);
+        transform: translateZ(
+          0
+        ); /* đưa card lên lớp GPU riêng: cuộn mượt hơn */
+        backface-visibility: hidden;
+        overflow: hidden;
+        border-radius: 22px 22px 0 0;
+        box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.28);
+      }
+      .card {
+        background: var(--paper);
+        display: flex;
+        padding: 2rem 1.6rem;
+        overflow-y: auto;
+      }
+      .card > * {
+        margin: auto;
+      } /* căn giữa an toàn: nội dung dài vẫn cuộn được */
 
-  main{flex:1;}
+      /* ---------- Hero ---------- */
+      #hero {
+        position: sticky;
+        top: var(--bar);
+        height: var(--card-h);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .blob-field {
+        position: absolute;
+        inset: 0;
+        filter: blur(70px);
+        opacity: 0.85;
+        z-index: 0;
+        will-change: transform; /* giữ lớp mờ ổn định khi cuộn */
+        pointer-events: none;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+      }
+      .blob.b1 {
+        width: 40vw;
+        height: 40vw;
+        background: var(--accent);
+        top: 18%;
+        left: 30%;
+        opacity: 0.55;
+      }
+      .blob.b2 {
+        width: 30vw;
+        height: 30vw;
+        background: #e8b4b8;
+        top: 35%;
+        left: 50%;
+        opacity: 0.5;
+      }
+      .blob.b3 {
+        width: 26vw;
+        height: 26vw;
+        background: #c9d6df;
+        top: 10%;
+        left: 55%;
+        opacity: 0.4;
+      }
+      .blob.b4 {
+        width: 22vw;
+        height: 22vw;
+        background: #f0dca0;
+        top: 40%;
+        left: 22%;
+        opacity: 0.35;
+      }
 
-  /* ---------- Card: mọi phần đều là một "tấm" cao đúng bằng màn hình, xếp chồng khi cuộn ---------- */
-  .card, .proj-cover, .proj-detail{
-    position:sticky;
-    top:var(--bar);
-    height:var(--card-h);
-    transform:translateZ(0);          /* đưa card lên lớp GPU riêng: cuộn mượt hơn */
-    backface-visibility:hidden;
-    overflow:hidden;
-    border-radius:22px 22px 0 0;
-    box-shadow:0 -14px 40px rgba(0,0,0,.28);
-  }
-  .card{ background:var(--paper); display:flex; padding:2rem 1.6rem; overflow-y:auto; }
-  .card > *{ margin:auto; }   /* căn giữa an toàn: nội dung dài vẫn cuộn được */
+      .hero-word {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        font-size: clamp(2.6rem, 9vw, 6rem);
+        letter-spacing: 0.12em;
 
-  /* ---------- Hero ---------- */
-  #hero{
-    position:sticky; top:var(--bar);
-    height:var(--card-h);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    border-radius:0;
-    box-shadow:none;
-    padding:0;
-  }
-  .blob-field{
-    position:absolute; inset:0; filter:blur(70px); opacity:0.85; z-index:0;
-    will-change:transform;            /* giữ lớp mờ ổn định khi cuộn */
-    pointer-events:none;
-  }
-  .blob{ position:absolute; border-radius:50%; }
-  .blob.b1{ width:40vw; height:40vw; background:var(--accent); top:18%; left:30%; opacity:.55; }
-  .blob.b2{ width:30vw; height:30vw; background:#E8B4B8; top:35%; left:50%; opacity:.5; }
-  .blob.b3{ width:26vw; height:26vw; background:#C9D6DF; top:10%; left:55%; opacity:.4; }
-  .blob.b4{ width:22vw; height:22vw; background:#F0DCA0; top:40%; left:22%; opacity:.35; }
+        color: var(--accent);
+        opacity: 0.85;
+        margin: 0 0 2.2rem;
+        font-family: "Cormorant Upright", serif;
+      }
+      .hero-foot {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.4rem;
+      }
+      .hero-id {
+        position: absolute;
+        z-index: 1;
+        left: 1.8rem;
+        bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px));
+        text-align: left;
+      }
+      .hero-id .name {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 0 0 0.3rem;
+        font-family: "Cormorant Upright", serif;
+      }
+      .hero-id .line {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.82rem;
+        color: var(--ink);
+        opacity: 0.6;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .hero-nav {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-nav button {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.88rem;
+        padding: 0.6rem 1.3rem;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        cursor: pointer;
+        transition:
+          background 0.18s ease,
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .hero-nav button:hover,
+      .hero-nav button:focus-visible {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .hero-nav button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
 
-  .hero-word{
-    position:relative; z-index:1;
-    text-align:center;
-    font-size:clamp(2.6rem,9vw,6rem);
-    letter-spacing:0.12em;
-    
-    color:var(--accent);
-    opacity:0.85;
-    margin:0 0 2.2rem;
-    font-family:  "Cormorant Upright", serif;
-  }
-  .hero-foot{
-    position:relative; z-index:1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:1.4rem;
-  }
-  .hero-id{
-    position:absolute;
-    z-index:1;
-    left:1.8rem;
-    bottom:calc(2.2rem + env(safe-area-inset-bottom, 0px));
-    text-align:left;
-  }
-  .hero-id .name{
-    font-size:1.15rem;
-    font-weight:600;
-    margin:0 0 0.3rem;
-    font-family:  "Cormorant Upright", serif;
-  }
-  .hero-id .line{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.82rem;
-    color:var(--ink);
-    opacity:0.6;
-    line-height:1.6;
-    margin:0;
-  }
-  .hero-nav{ display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; }
-  .hero-nav button{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.88rem;
-    padding:0.6rem 1.3rem; background:var(--paper); color:var(--ink); border:1px solid var(--line);
-    border-radius:999px; cursor:pointer; transition:background .18s ease, color .18s ease, border-color .18s ease;
-  }
-  .hero-nav button:hover, .hero-nav button:focus-visible{ border-color:var(--accent); color:var(--accent); }
-  .hero-nav button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+      /* ---------- Chữ dùng chung ---------- */
+      .page-inner {
+        max-width: 560px;
+        width: 100%;
+      }
 
-  /* ---------- Chữ dùng chung ---------- */
-  .page-inner{ max-width:560px; width:100%; }
+      .eyebrow {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.8rem;
+        color: var(--accent);
+        margin: 0 0 0.5rem;
+        display: flex;
+      }
+      .card h1 {
+        font-size: clamp(1.7rem, 4vw, 2.3rem);
+        font-weight: 400;
+        margin: 0 0 1.2rem;
+        line-height: 1.35;
+      }
+      p {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin: 0 0 1rem;
+        max-width: 46ch;
+      }
+      a {
+        color: var(--accent);
+      }
+      .divider {
+        width: 2.4rem;
+        height: 2px;
+        background: var(--accent);
+        margin-bottom: 1.4rem;
+        border: none;
+      }
 
-  .eyebrow{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:0.8rem; color:var(--accent);
-    margin:0 0 0.5rem; display:flex;
-  }
-  .card h1{ font-size:clamp(1.7rem,4vw,2.3rem); font-weight:400; margin:0 0 1.2rem; line-height:1.35; }
-  p{ font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; font-size:1rem; line-height:1.8; margin:0 0 1rem; max-width:46ch; }
-  a{color:var(--accent);}
-  .divider{ width:2.4rem; height:2px; background:var(--accent); margin-bottom:1.4rem; border:none; }
+      /* ---------- About ---------- */
+      #about .page-inner {
+        max-width: 920px;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      @media (max-width: 640px) {
+        #about .page-inner {
+          grid-template-columns: 1fr;
+          gap: 1.4rem;
+        }
+        .avatar-box {
+          max-width: 150px;
+          aspect-ratio: 1/1;
+        }
+      }
+      .avatar-box {
+        aspect-ratio: 3/4;
+        border-radius: 14px;
+        background: linear-gradient(160deg, var(--accent-soft), var(--line));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .avatar-box svg {
+        width: 55%;
+        height: 55%;
+        opacity: 0.9;
+      }
+      .avatar-box svg path,
+      .avatar-box svg circle {
+        fill: var(--accent);
+      }
+      .hello-wrap {
+        position: relative;
+      }
+      .hello-ghost {
+        position: absolute;
+        top: -2.4rem;
+        left: -0.2rem;
+        font-size: clamp(3rem, 7vw, 5rem);
+        font-weight: 700;
+        color: var(--accent-soft);
+        z-index: 0;
+        user-select: none;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+      }
+      .hello-title {
+        position: relative;
+        z-index: 1;
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        font-weight: 700;
+        margin: 0 0 1.4rem;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+      }
+      .im {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 1.3rem;
+        margin: 0 0 0.4rem;
+      }
+      .role-line {
+        font-style: italic;
+        opacity: 0.75;
+        margin: 0 0 1.2rem;
+      }
+      /* ---------- Skills (phần About) ---------- */
+      .skills {
+        margin-top: 1.8rem;
+      }
+      .skills-label {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.8rem;
+        color: var(--accent);
+        margin: 0 0 0.6rem;
+      }
+      .skill-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .skill-list li {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.85rem;
+        color: var(--ink);
+        display: inline-flex;
+        align-items: center;
+      }
+      /* Ô chữ viết tắt với màu thương hiệu */
+      .skill-badge {
+        display: inline-grid;
+        place-items: center;
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 50%;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #2e2624;
+      }
+      .badge-ai {
+        background: #ff9a00;
+      }
+      .badge-ps {
+        background: #31a8ff;
+      }
+      .badge-ae {
+        background: #9999ff;
+      }
+      .badge-code {
+        background: var(--accent);
+        color: var(--paper);
+      }
 
-  /* ---------- About ---------- */
-  #about .page-inner{
-    max-width:920px;
-    display:grid;
-    grid-template-columns:260px 1fr;
-    gap:3rem;
-    align-items:center;
-  }
-  @media (max-width:640px){
-    #about .page-inner{ grid-template-columns:1fr; gap:1.4rem; }
-    .avatar-box{ max-width:150px; aspect-ratio:1/1; }
-  }
-  .avatar-box{
-    aspect-ratio:3/4;
-    border-radius:14px;
-    background:linear-gradient(160deg, var(--accent-soft), var(--line));
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-  }
-  .avatar-box svg{ width:55%; height:55%; opacity:0.9; }
-  .avatar-box svg path, .avatar-box svg circle{ fill:var(--accent); }
-  .hello-wrap{ position:relative; }
-  .hello-ghost{
-    position:absolute; top:-2.4rem; left:-0.2rem;
-    font-size:clamp(3rem,7vw,5rem);
-    font-weight:700;
-    color:var(--accent-soft);
-    z-index:0;
-    user-select:none;
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-  }
-  .hello-title{
-    position:relative; z-index:1;
-    font-size:clamp(2rem,5vw,2.8rem);
-    font-weight:700;
-    margin:0 0 1.4rem;
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-  }
-  .im{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-     font-size:1.3rem; margin:0 0 0.4rem;
-  }
-  .role-line{
-    font-style:italic; opacity:0.75; margin:0 0 1.2rem;
-  }
-  /* ---------- Skills (phần About) ---------- */
-  .skills{ margin-top:1.8rem; }
-  .skills-label{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.8rem; color:var(--accent); margin:0 0 0.6rem;
-  }
-  .skill-list{
-    list-style:none; padding:0; margin:0;
-    display:flex; flex-wrap:wrap; gap:0.5rem;
-  }
-  .skill-list li{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.85rem; color:var(--ink);
-    display:inline-flex; align-items:center;
-  }
-  /* Ô chữ viết tắt với màu thương hiệu */
-  .skill-badge{
-    display:inline-grid; place-items:center;
-    width:1.9rem; height:1.9rem; border-radius:50%;
-    font-size:0.72rem; font-weight:700; letter-spacing:0.02em;
-    color:#2E2624;
-  }
-  .badge-ai{ background:#FF9A00; }
-  .badge-ps{ background:#31A8FF; }
-  .badge-ae{ background:#9999FF; }
-  .badge-code{ background:var(--accent); color:var(--paper); }
+      /* ---------- Work: card tiêu đề + các card dự án ---------- */
+      .work-intro .page-inner {
+        text-align: center;
+      }
+      .work-intro .eyebrow {
+        justify-content: center;
+      }
+      .work-intro h1 {
+        font-size: clamp(2rem, 6vw, 3.4rem);
+      }
+      .work-intro .divider {
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-  /* ---------- Work: card tiêu đề + các card dự án ---------- */
-  .work-intro .page-inner{ text-align:center; }
-  .work-intro .eyebrow{ justify-content:center; }
-  .work-intro h1{ font-size:clamp(2rem,6vw,3.4rem); }
-  .work-intro .divider{ margin-left:auto; margin-right:auto; }
+      /* Mỗi project không tạo khối riêng: các card (bìa + chi tiết) là anh em trong <main> để xếp chồng */
+      .proj {
+        display: contents;
+      }
+      .proj-cover {
+        display: flex;
+        align-items: center;
+        color: #f6ece9;
+        background: linear-gradient(
+          135deg,
+          #2a2120 0%,
+          #4a2e33 55%,
+          #1d1716 100%
+        );
+      }
+      .proj-cover.alt {
+        background: linear-gradient(
+          135deg,
+          #372226 0%,
+          #5c3a40 55%,
+          #241a1b 100%
+        );
+      }
+      .proj-cover::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 75% 50%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.45) 100%
+        );
+        pointer-events: none;
+      }
+      .side-label {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%) rotate(180deg);
+        writing-mode: vertical-rl;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        opacity: 0.55;
+        z-index: 1;
+      }
+      .proj-cover-text {
+        position: relative;
+        z-index: 1;
+        max-width: 460px;
+        padding: 2.6rem 2.2rem 2.6rem 3.4rem;
+      }
+      .proj-index {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        opacity: 0.3;
+        margin: 0 0 0.2rem;
+      }
+      .proj-title {
+        font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+        font-weight: 700;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        margin: 0 0 0.6rem;
+      }
+      .proj-tagline {
+        font-style: italic;
+        color: var(--accent-soft);
+        font-size: 0.95rem;
+        margin: 0 0 1rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid var(--accent);
+        display: inline-block;
+      }
+      .proj-desc {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.88rem;
+        line-height: 1.8;
+        opacity: 0.8;
+        max-width: 450ch;
+      }
 
-  /* Mỗi project không tạo khối riêng: các card (bìa + chi tiết) là anh em trong <main> để xếp chồng */
-  .proj{ display:contents; }
-  .proj-cover{
-    display:flex;
-    align-items:center;
-    color:#F6ECE9;
-    background:linear-gradient(135deg,#2A2120 0%, #4A2E33 55%, #1D1716 100%);
-  }
-  .proj-cover.alt{
-    background:linear-gradient(135deg,#372226 0%, #5C3A40 55%, #241A1B 100%);
-  }
-  .proj-cover::after{
-    content:'';
-    position:absolute; inset:0;
-    background:radial-gradient(circle at 75% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 100%);
-    pointer-events:none;
-  }
-  .side-label{
-    position:absolute;
-    left:1.2rem; top:50%;
-    transform:translateY(-50%) rotate(180deg);
-    writing-mode:vertical-rl;
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.72rem;
-    letter-spacing:0.08em;
-    opacity:0.55;
-    z-index:1;
-  }
-  .proj-cover-text{
-    position:relative; z-index:1;
-    max-width:460px;
-    padding:2.6rem 2.2rem 2.6rem 3.4rem;
-  }
-  .proj-index{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:2.4rem;
-    font-weight:700;
-    opacity:0.3;
-    margin:0 0 0.2rem;
-  }
-  .proj-title{
-    font-size:clamp(1.9rem,4.5vw,2.6rem);
-    font-weight:700;
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    margin:0 0 0.6rem;
-  }
-  .proj-tagline{
-    font-style:italic;
-    color:var(--accent-soft);
-    font-size:0.95rem;
-    margin:0 0 1rem;
-    padding-bottom:0.8rem;
-    border-bottom:2px solid var(--accent);
-    display:inline-block;
-  }
-  .proj-desc{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.88rem;
-    line-height:1.8;
-    opacity:0.8;
-    max-width:450ch;
-  }
+      /* Nút chơi thử nổi bật trên bìa game */
+      .play-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.2rem;
+        padding: 0.75rem 1.7rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--paper);
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .play-btn:hover,
+      .play-btn:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      }
+      .play-btn:focus-visible {
+        outline: 2px solid var(--accent-soft);
+        outline-offset: 3px;
+      }
 
-  /* Nút chơi thử nổi bật trên bìa game */
-  .play-btn{
-    display:inline-flex; align-items:center; gap:0.5rem;
-    margin-top:1.2rem; padding:0.75rem 1.7rem;
-    border-radius:999px;
-    background:var(--accent); color:var(--paper);
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.95rem; font-weight:600; letter-spacing:0.03em;
-    text-decoration:none;
-    box-shadow:0 6px 18px rgba(0,0,0,.25);
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  .play-btn:hover, .play-btn:focus-visible{
-    transform:translateY(-2px);
-    box-shadow:0 10px 24px rgba(0,0,0,.35);
-  }
-  .play-btn:focus-visible{ outline:2px solid var(--accent-soft); outline-offset:3px; }
+      /* Bìa game: ảnh chỉ chiếm nửa trái, hiển thị đầy đủ không bị làm mờ */
+      .proj-cover.half-bg .proj-cover-img img {
+        opacity: 1;
+        object-fit: contain;
+        background: #2a2120;
+      }
 
-  /* Bìa game: ảnh chỉ chiếm nửa trái, hiển thị đầy đủ không bị làm mờ */
-  .proj-cover.half-bg .proj-cover-img img{ opacity:1; object-fit:contain; background:#2A2120; }
+      /* Bìa có ảnh: ảnh nằm cột trái, tràn sát mép trái/trên/dưới */
+      .proj-cover.has-img {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        align-items: stretch;
+      }
+      .proj-cover.has-img .side-label {
+        left: auto;
+        right: 1.2rem;
+      }
+      .proj-cover.has-img .proj-cover-img {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        background: linear-gradient(160deg, #5c3a40, #2a2120);
+      }
+      .proj-cover.has-img .proj-cover-img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.5;
+      }
+      .proj-cover.has-img .proj-cover-text {
+        align-self: center;
+        padding: 2.6rem 3.4rem 2.6rem 3rem;
+      }
+      @media (max-width: 760px) {
+        .proj-cover.has-img {
+          grid-template-columns: 1fr;
+          grid-template-rows: 42% 58%;
+        }
+        .proj-cover.has-img .proj-cover-text {
+          padding: 1.4rem 1.6rem;
+          overflow-y: auto;
+        }
+        .proj-cover.has-img .side-label {
+          display: none;
+        }
+      }
 
-  /* Bìa có ảnh: ảnh nằm cột trái, tràn sát mép trái/trên/dưới */
-  .proj-cover.has-img{
-    display:grid;
-    grid-template-columns:1.1fr 1fr;
-    align-items:stretch;
-  }
-  .proj-cover.has-img .side-label{ left:auto; right:1.2rem; }
-  .proj-cover.has-img .proj-cover-img{
-    position:relative; z-index:1;
-    overflow:hidden;
-    background:linear-gradient(160deg,#5C3A40,#2A2120);
-  }
-  .proj-cover.has-img .proj-cover-img img{
-    display:block; 
-    width:100%; 
-    height:100%; 
-    object-fit:cover;
-    opacity: 0.5;
+      /* Bìa Naimu / Poster: ảnh full màn hình, chữ nằm bên phải */
+      .proj-cover.naimu {
+        justify-content: flex-end; /* đẩy khối chữ sang phải */
+      }
+      .proj-cover.naimu .proj-cover-text {
+        padding: 2.6rem 3.4rem 2.6rem 2.2rem;
+      }
+      .proj-cover.naimu .proj-cover-img {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .proj-cover.naimu .proj-cover-img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* lớp tối phía phải để chữ dễ đọc */
+      .proj-cover.naimu .proj-cover-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          270deg,
+          rgba(0, 0, 0, 0.65) 0%,
+          rgba(0, 0, 0, 0.25) 55%,
+          rgba(0, 0, 0, 0) 100%
+        );
+      }
+      /* Poster: đặt khối chữ bắt đầu ngay sau mép phải của tấm poster (tăng/giảm % này để chỉnh) */
+      .proj-cover.poster .proj-cover-text {
+        margin-left: 53%;
+        margin-right: 0;
+      }
+      @media (max-width: 760px) {
+        .proj-cover.naimu {
+          align-items: flex-end;
+          justify-content: flex-start;
+        }
+        .proj-cover.naimu .proj-cover-text {
+          padding: 1.4rem 1.6rem calc(2.4rem + env(safe-area-inset-bottom, 0px))
+            3rem;
+          max-height: 100%;
+          overflow-y: auto;
+        }
+        .proj-cover.naimu .proj-cover-img::after {
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.45) 55%,
+            rgba(0, 0, 0, 0.1) 100%
+          );
+        }
+        .proj-cover.poster .proj-cover-text {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
 
-  }
-  .proj-cover.has-img .proj-cover-text{
-    align-self:center;
-    padding:2.6rem 3.4rem 2.6rem 3rem;
-  }
-  @media (max-width:760px){
-    .proj-cover.has-img{ grid-template-columns:1fr; grid-template-rows:42% 58%; }
-    .proj-cover.has-img .proj-cover-text{ padding:1.4rem 1.6rem; overflow-y:auto; }
-    .proj-cover.has-img .side-label{ display:none; }
-  }
+      /* ---------- Chi tiết dự án ---------- */
+      .proj-detail {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 0;
+        align-items: stretch;
+        background: var(--paper);
+      }
+      .proj-detail.reverse {
+        direction: rtl;
+      }
+      .proj-detail.reverse > * {
+        direction: ltr;
+      }
+      @media (max-width: 760px) {
+        .proj-detail {
+          grid-template-columns: 1fr;
+          grid-template-rows: 40% 60%;
+        }
+      }
 
-  /* Bìa Naimu / Poster: ảnh full màn hình, chữ nằm bên phải */
-  .proj-cover.naimu{
-    justify-content:flex-end;          /* đẩy khối chữ sang phải */
-  }
-  .proj-cover.naimu .proj-cover-text{
-    padding:2.6rem 3.4rem 2.6rem 2.2rem;
-  }
-  .proj-cover.naimu .proj-cover-img{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    overflow:hidden;
-  }
-  .proj-cover.naimu .proj-cover-img img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  }
-  /* lớp tối phía phải để chữ dễ đọc */
-  .proj-cover.naimu .proj-cover-img::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(270deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 100%);
-  }
-  /* Poster: đặt khối chữ bắt đầu ngay sau mép phải của tấm poster (tăng/giảm % này để chỉnh) */
-  .proj-cover.poster .proj-cover-text{ margin-left:53%; margin-right:0; }
-  @media (max-width:760px){
-    .proj-cover.naimu{ align-items:flex-end; justify-content:flex-start; }
-    .proj-cover.naimu .proj-cover-text{
-      padding:1.4rem 1.6rem calc(2.4rem + env(safe-area-inset-bottom, 0px)) 3rem;
-      max-height:100%;
-      overflow-y:auto;
-    }
-    .proj-cover.naimu .proj-cover-img::after{
-      background:linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.1) 100%);
-    }
-    .proj-cover.poster .proj-cover-text{ margin-left:0; margin-right:0; }
-  }
+      /* Chi tiết có gallery: trên là chữ 2 cột, dưới là ảnh sản phẩm */
+      .proj-detail.has-gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        align-content: start; /* không kéo giãn hàng, để ảnh giữ đúng chiều cao thật */
+        overflow: hidden; /* không cuộn bên trong card: tránh việc trang bị "đứng" khi rê chuột lên card */
+        margin-bottom: var(
+          --card-h
+        ); /* khoảng cuộn thêm để card này đứng yên lâu hơn trước khi card sau trượt lên */
+      }
+      .proj-detail-concept {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem 4rem;
+        align-items: start;
+        padding: 2rem 3rem 1.6rem;
+      }
+      .proj-detail-concept .proj-detail-label {
+        grid-column: 1 / -1;
+        margin-bottom: 0.8rem;
+      }
+      .concept-block + .concept-block {
+        margin-top: 1.4rem;
+      }
+      .proj-detail-concept .proj-detail-title {
+        font-size: 1rem;
+        color: var(--accent);
+        margin: 0 0 0.5rem;
+        letter-spacing: 0.02em;
+      }
+      .proj-detail-concept p {
+        font-size: 0.88rem;
+        line-height: 1.9;
+        opacity: 0.85;
+        max-width: none;
+        margin: 0 0 0.5rem;
+      }
+      .proj-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: calc(
+          var(--card-h) - 25rem
+        ); /* ba ô ảnh cùng kích thước, chia đều theo chiều ngang */
+        gap: 10px;
+        min-height: 0;
+        /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
+        padding: 0 3rem calc(3rem + env(safe-area-inset-bottom, 0px));
+      }
+      .gallery-item {
+        min-height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        background: none;
+        cursor: zoom-in;
+      }
+      .gallery-item img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      } /* contain: hiện trọn ảnh web/sản phẩm, không bị cắt */
 
-  /* ---------- Chi tiết dự án ---------- */
-  .proj-detail{
-    display:grid;
-    grid-template-columns:1.1fr 1fr;
-    gap:0;
-    align-items:stretch;
-    background:var(--paper);
-  }
-  .proj-detail.reverse{ direction:rtl; }
-  .proj-detail.reverse > *{ direction:ltr; }
-  @media (max-width:760px){
-    .proj-detail{ grid-template-columns:1fr; grid-template-rows:40% 60%; }
-  }
+      /* Lightbox: bấm vào ảnh gallery để phóng to */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.85);
+        cursor: zoom-out;
+      }
+      .lightbox.is-open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 0.5rem;
+      }
+      .gallery-item.g1 {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .gallery-item.g2 {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .gallery-item.g3 {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      @media (max-width: 760px) {
+        .proj-detail.has-gallery {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto minmax(0, 1fr);
+        }
+        .proj-detail-concept {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 1.4rem 1.6rem 1rem;
+          max-height: 50dvh;
+          overflow-y: auto;
+        }
+        .concept-block + .concept-block {
+          margin-top: 1rem;
+        }
+        .proj-gallery {
+          padding: 0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px));
+        }
+      }
+      .proj-gallery.stack {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 1.2rem;
+        min-height: auto;
+        align-content: start;
+      }
+      .proj-gallery.stack .gallery-item {
+        height: auto;
+        min-height: auto;
+        overflow: visible;
+        background: none;
+      }
+      .proj-gallery.stack .gallery-item img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        max-width: 100%;
+        height: calc(var(--card-h) - 19rem);
+        object-fit: contain;
+        border-radius: 12px;
+      }
+      @media (max-width: 760px) {
+        .proj-gallery.stack {
+          grid-template-columns: 1fr;
+        }
+        .proj-gallery.stack .gallery-item img {
+          height: calc((var(--card-h) - 19rem) / 2);
+        }
+      }
+      @media (max-width: 760px) {
+        .proj-gallery:not(.stack):not(.single) {
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(3, 200px);
+        }
+      }
+      /* Gallery một ảnh rộng (UX flow): ảnh chiếm trọn khung, giữ đúng tỉ lệ */
+      .proj-gallery.single {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        justify-items: center;
+        align-content: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .proj-gallery.single .gallery-item {
+        background: none;
+        overflow: visible;
+      }
+      /* ảnh vừa khung và vừa chiều cao màn hình, giữ đúng tỉ lệ, không bị cắt */
+      .proj-gallery.single .gallery-item img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: calc(var(--card-h) - 6rem);
+        border-radius: 0;
+      }
+      /* UX flow chỉ có ảnh, không có chữ: card ôm sát ảnh */
+      .proj-detail.ux-images-only {
+        grid-template-rows: auto;
+      }
+      .proj-detail-img {
+        background: linear-gradient(160deg, var(--accent-soft), var(--line));
+        min-height: 0;
+      }
+      .proj-detail-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem 3rem;
+        max-width: 460px;
+      }
+      @media (max-width: 760px) {
+        .proj-detail-text {
+          padding: 1.4rem 1.6rem;
+          max-width: none;
+          overflow-y: auto;
+        }
+      }
+      .proj-detail-label {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        opacity: 0.8;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .proj-detail-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        margin: 0 0 0.9rem;
+      }
+      .proj-detail-text p {
+        font-size: 0.92rem;
+        opacity: 0.85;
+      }
 
-  /* Chi tiết có gallery: trên là chữ 2 cột, dưới là ảnh sản phẩm */
-  .proj-detail.has-gallery{
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto;
-    align-content:start;           /* không kéo giãn hàng, để ảnh giữ đúng chiều cao thật */
-    overflow:hidden;               /* không cuộn bên trong card: tránh việc trang bị "đứng" khi rê chuột lên card */
-    margin-bottom:var(--card-h);   /* khoảng cuộn thêm để card này đứng yên lâu hơn trước khi card sau trượt lên */
-  }
-  .proj-detail-concept{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0.4rem 4rem;
-    align-items:start;
-    padding:2rem 3rem 1.6rem;
-  }
-  .proj-detail-concept .proj-detail-label{ grid-column:1 / -1; margin-bottom:0.8rem; }
-  .concept-block + .concept-block{ margin-top:1.4rem; }
-  .proj-detail-concept .proj-detail-title{
-    font-size:1rem; color:var(--accent); margin:0 0 0.5rem; letter-spacing:0.02em;
-  }
-  .proj-detail-concept p{ font-size:0.88rem; line-height:1.9; opacity:0.85; max-width:none; margin:0 0 0.5rem; }
-  .proj-gallery{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    grid-template-rows:calc(var(--card-h) - 25rem);  /* ba ô ảnh cùng kích thước, chia đều theo chiều ngang */
-    gap:10px;
-    min-height:0;
-    /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
-    padding:0 3rem calc(3rem + env(safe-area-inset-bottom, 0px));
-  }
-  .gallery-item{
-    min-height:0; overflow:hidden;
-    border-radius:12px;
-    background:none;
-    cursor:zoom-in;
-  }
-  .gallery-item img{ display:block; width:100%; height:100%; object-fit:contain; }  /* contain: hiện trọn ảnh web/sản phẩm, không bị cắt */
+      /* ---------- Contact ---------- */
+      .contact-item {
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        display: flex;
+        gap: 0.6rem;
+        padding: 0.6rem 0;
+      }
+      .contact-item span:first-child {
+        color: var(--accent);
+        min-width: 5.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <button type="button" class="mark" id="logoBtn">
+        Le Ngoc Thanh Truc <span>.</span>
+      </button>
+      <nav id="pageNav">
+        <button type="button" data-page="about">About</button>
+        <button type="button" data-page="work">My Work</button>
+        <button type="button" data-page="contact">Contact</button>
+      </nav>
+    </header>
 
-  /* Lightbox: bấm vào ảnh gallery để phóng to */
-  .lightbox{
-    position:fixed; inset:0; z-index:1000;
-    display:none; align-items:center; justify-content:center;
-    padding:2rem; background:rgba(0,0,0,.85);
-    cursor:zoom-out;
-  }
-  .lightbox.is-open{ display:flex; }
-  .lightbox img{
-    max-width:100%; max-height:100%;
-    object-fit:contain; border-radius:0.5rem;
-  }
-  .gallery-item.g1{ grid-column:1; grid-row:1; }
-  .gallery-item.g2{ grid-column:2; grid-row:1; }
-  .gallery-item.g3{ grid-column:3; grid-row:1; }
-  @media (max-width:760px){
-    .proj-detail.has-gallery{ grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); }
-    .proj-detail-concept{ grid-template-columns:1fr; gap:1rem; padding:1.4rem 1.6rem 1rem; max-height:50dvh; overflow-y:auto; }
-    .concept-block + .concept-block{ margin-top:1rem; }
-    .proj-gallery{ padding:0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
-  }
-  .proj-gallery.stack{ grid-template-columns:1fr 1fr; grid-template-rows:auto; gap:1.2rem; min-height:auto; align-content:start; }
-  .proj-gallery.stack .gallery-item{ height:auto; min-height:auto; overflow:visible; background:none; }
-  .proj-gallery.stack .gallery-item img{ display:block; margin:0 auto; width:auto; max-width:100%; height:calc(var(--card-h) - 19rem); object-fit:contain; border-radius:12px; }
-  @media (max-width:760px){
-    .proj-gallery.stack{ grid-template-columns:1fr; }
-    .proj-gallery.stack .gallery-item img{ height:calc((var(--card-h) - 19rem) / 2); }
-  }
-  @media (max-width:760px){ .proj-gallery:not(.stack):not(.single){ grid-template-columns:1fr; grid-template-rows:repeat(3, 200px); } }
-  /* Gallery một ảnh rộng (UX flow): ảnh chiếm trọn khung, giữ đúng tỉ lệ */
-  .proj-gallery.single{ grid-template-columns:1fr; grid-template-rows:auto; justify-items:center; align-content:center; padding-top:2rem; padding-bottom:2rem; }
-  .proj-gallery.single .gallery-item{ background:none; overflow:visible; }
-  /* ảnh vừa khung và vừa chiều cao màn hình, giữ đúng tỉ lệ, không bị cắt */
-  .proj-gallery.single .gallery-item img{ display:block; width:auto; height:auto; max-width:100%; max-height:calc(var(--card-h) - 6rem); border-radius:0; }
-  /* UX flow chỉ có ảnh, không có chữ: card ôm sát ảnh */
-  .proj-detail.ux-images-only{ grid-template-rows:auto; }
-  .proj-detail-img{
-    background:linear-gradient(160deg, var(--accent-soft), var(--line));
-    min-height:0;
-  }
-  .proj-detail-text{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:2rem 3rem;
-    max-width:460px;
-  }
-  @media (max-width:760px){ .proj-detail-text{ padding:1.4rem 1.6rem; max-width:none; overflow-y:auto; } }
-  .proj-detail-label{
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    font-size:0.72rem;
-    letter-spacing:0.08em;
-    color:var(--accent);
-    opacity:0.8;
-    display:block;
-    margin-bottom:1rem;
-  }
-  .proj-detail-title{
-    font-size:1.4rem;
-    font-weight:700;
-    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
-    margin:0 0 0.9rem;
-  }
-  .proj-detail-text p{
-    font-size:0.92rem;
-    opacity:0.85;
-  }
-
-  /* ---------- Contact ---------- */
-  .contact-item{ font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif; display:flex; gap:0.6rem; padding:0.6rem 0; }
-  .contact-item span:first-child{ color:var(--accent); min-width:5.5rem; }
-</style>
-</head>
-<body>
-  <header class="topbar" id="topbar">
-    <button type="button" class="mark" id="logoBtn">Le Ngoc Thanh Truc <span>.</span></button>
-    <nav id="pageNav">
-      <button type="button" data-page="about">About</button>
-      <button type="button" data-page="work">My Work</button>
-      <button type="button" data-page="contact">Contact</button>
-    </nav>
-  </header>
-
-  <main id="main">
-    <!-- 1. Hero -->
-    <section id="hero">
-      <div class="blob-field">
-        <div class="blob b1"></div>
-        <div class="blob b2"></div>
-        <div class="blob b3"></div>
-        <div class="blob b4"></div>
-      </div>
-      <p class="hero-word">PORTFOLIO</p>
-      <div class="hero-foot">
-        <div class="hero-nav">
-          <button type="button" data-page="about">About</button>
-          <button type="button" data-page="work">My Work</button>
-          <button type="button" data-page="contact">Contact</button>
+    <main id="main">
+      <!-- 1. Hero -->
+      <section id="hero">
+        <div class="blob-field">
+          <div class="blob b1"></div>
+          <div class="blob b2"></div>
+          <div class="blob b3"></div>
+          <div class="blob b4"></div>
         </div>
-      </div>
-      <div class="hero-id">
-        <p class="name">LE NGOC THANH TRUC </p>
-        <p class="line">Design</p>
-      </div>
-    </section>
+        <p class="hero-word">PORTFOLIO</p>
+        <div class="hero-foot">
+          <div class="hero-nav">
+            <button type="button" data-page="about">About</button>
+            <button type="button" data-page="work">My Work</button>
+            <button type="button" data-page="contact">Contact</button>
+          </div>
+        </div>
+        <div class="hero-id">
+          <p class="name">LE NGOC THANH TRUC</p>
+          <p class="line">Design</p>
+        </div>
+      </section>
 
-    <!-- 2. About -->
-    <section id="about" class="card">
-      
+      <!-- 2. About -->
+      <section id="about" class="card">
         <div class="hello-wrap">
           <p class="hello-ghost">Xin Chào!</p>
           <h1 class="hello-title">Xin Chào!</h1>
           <p class="im">Le Ngoc Thanh Truc</p>
           <p class="role-line">デザインとITを学ぶ学生｜デジタルクリエイター</p>
-          <p>好奇心から生まれる「やってみたい」を大切にしています。デザインを中心に、ITやテクノロジー、写真など、興味を持ったことを自由に学び、組み合わせながら、新しいアイデアを形にしてきました。人の気持ちに寄り添いながら、見た目だけでなく、使いやすさまで考えたデザインを目指しています。</p>
+          <p>
+            好奇心から生まれる「やってみたい」を大切にしています。デザインを中心に、ITやテクノロジー、写真など、興味を持ったことを自由に学び、組み合わせながら、新しいアイデアを形にしてきました。人の気持ちに寄り添いながら、見た目だけでなく、使いやすさまで考えたデザインを目指しています。
+          </p>
           <div class="skills">
             <p class="skills-label">スキル</p>
             <ul class="skill-list">
-              <li><span class="skill-badge badge-ai" role="img" aria-label="Adobe Illustrator" title="Adobe Illustrator">Ai</span></li>
-              <li><span class="skill-badge badge-ps" role="img" aria-label="Adobe Photoshop" title="Adobe Photoshop">Ps</span></li>
-              <li><span class="skill-badge badge-ae" role="img" aria-label="Adobe After Effects" title="Adobe After Effects">Ae</span></li>
-              <li><span class="skill-badge badge-code" role="img" aria-label="コーディング（HTML / CSS / JavaScript）" title="コーディング（HTML / CSS / JavaScript）">&lt;/&gt;</span></li>
+              <li>
+                <span
+                  class="skill-badge badge-ai"
+                  role="img"
+                  aria-label="Adobe Illustrator"
+                  title="Adobe Illustrator"
+                  >Ai</span
+                >
+              </li>
+              <li>
+                <span
+                  class="skill-badge badge-ps"
+                  role="img"
+                  aria-label="Adobe Photoshop"
+                  title="Adobe Photoshop"
+                  >Ps</span
+                >
+              </li>
+              <li>
+                <span
+                  class="skill-badge badge-ae"
+                  role="img"
+                  aria-label="Adobe After Effects"
+                  title="Adobe After Effects"
+                  >Ae</span
+                >
+              </li>
+              <li>
+                <span
+                  class="skill-badge badge-code"
+                  role="img"
+                  aria-label="コーディング（HTML / CSS / JavaScript）"
+                  title="コーディング（HTML / CSS / JavaScript）"
+                  >&lt;/&gt;</span
+                >
+              </li>
             </ul>
           </div>
         </div>
-    </section>
+      </section>
 
-    <!-- 3. Work: card tiêu đề -->
-    <section id="work" class="card work-intro">
-      <div class="page-inner">
-        <p class="eyebrow">プロジェクト</p>
-        <h1>代表的なプロジェクト</h1>
-        <hr class="divider">
-      </div>
-    </section>
+      <!-- 3. Work: card tiêu đề -->
+      <section id="work" class="card work-intro">
+        <div class="page-inner">
+          <p class="eyebrow">プロジェクト</p>
+          <h1>代表的なプロジェクト</h1>
+          <hr class="divider" />
+        </div>
+      </section>
 
-    <!-- Project 1: Floral joy shop -->
-    <article class="proj">
-      <div class="proj-cover has-img">
-        <span class="side-label">PROJECT&nbsp;|&nbsp;P/01</span>
-        <div class="proj-cover-img">
-          <img src="./img/project/floral-shop.webp" loading="lazy" decoding="async" alt="Floral joy shop">
-        </div>
-        <div class="proj-cover-text">
-          <p class="proj-index">/01</p>
-          <h2 class="proj-title">Floral Joy Shop</h2>
-          <p class="proj-desc">季節の花々と個性あふれる花束を通して、大切な人へ「よろこび」を届けるフラワーショップ。花を贈る人、受け取る人、そのどちらにも心温まる体験を届けることをコンセプトとしています。</p>
-        </div>
-      </div>
-      <div class="proj-detail has-gallery">
-        <div class="proj-detail-concept">
-          <span class="proj-detail-label">PROJECT | P/02</span>
-          <div class="concept-col">
-            <div class="concept-block">
-              <h3 class="proj-detail-title">コンセプト</h3>
-              <p>旬の花を中心に、季節感と個性を大切にした花束を提案しています。花を贈る人と受け取る人、それぞれの気持ちが伝わるよう、色づかいや包み方までデザインしました。</p>
-            </div>
-            <div class="concept-block">
-              <h3 class="proj-detail-title">カラー</h3>
-              <img src="img/project/color.png" loading="lazy" decoding="async" alt="Floral Joy Shopのカラーパレット" style="width: 100%; max-width: 200px; margin-top: 0.5rem;">
-            </div>
+      <!-- Project 1: Floral joy shop -->
+      <article class="proj">
+        <div class="proj-cover has-img">
+          <span class="side-label">PROJECT&nbsp;|&nbsp;P/01</span>
+          <div class="proj-cover-img">
+            <img
+              src="./img/project/floral-shop.webp"
+              loading="lazy"
+              decoding="async"
+              alt="Floral joy shop"
+            />
           </div>
-          <div class="concept-col">
-            <div class="concept-block">
-              <h3 class="proj-detail-title">ターゲット</h3>
-              <p>20〜40代を中心とした、特別な日に花を贈りたい人。</p>
-              <p>Web: <a href="https://fj-shop.vercel.app/" target="_blank" rel="noopener noreferrer">fj-shop.vercel.app</a></p>
-            </div>
+          <div class="proj-cover-text">
+            <p class="proj-index">/01</p>
+            <h2 class="proj-title">Floral Joy Shop</h2>
+            <p class="proj-desc">
+              季節の花々と個性あふれる花束を通して、大切な人へ「よろこび」を届けるフラワーショップ。花を贈る人、受け取る人、そのどちらにも心温まる体験を届けることをコンセプトとしています。
+            </p>
           </div>
         </div>
-        <div class="proj-gallery">
-          <div class="gallery-item g1"><img src="./img/project/flower.webp" loading="lazy" decoding="async" alt="季節の花束のクローズアップ"></div>
-          <div class="gallery-item g2"><img src="./img/project/flower-box.webp" loading="lazy" decoding="async" alt="花束を入れたギフトボックスと名刺"></div>
-          <div class="gallery-item g3"><img src="./img/project/fj-web.webp" loading="lazy" decoding="async" alt="Floral Joy Shopのウェブサイト（PCとスマートフォン表示）"></div>
-        </div>
-      </div>
-      <div class="proj-detail has-gallery ux-images-only">
-        <div class="proj-gallery single">
-          <div class="gallery-item"><img src="./img/project/floral-ux-flow.png" loading="lazy" decoding="async" alt="Floral Joy ShopのUXフロー（トップ画面・商品一覧・ご利用の流れ・配送／店舗受け取りの入力画面）"></div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Project 1b: 火鍋の店 (Hot-Pot Game) -->
-    <article class="proj">
-      <div class="proj-cover has-img half-bg">
-        <span class="side-label">PROJECT&nbsp;|&nbsp;P/03</span>
-        <div class="proj-cover-img">
-          <img src="./img/project/hotpot-bg.webp" loading="lazy" decoding="async" alt="火鍋の店のゲーム画面イメージ">
-        </div>
-        <div class="proj-cover-text">
-          <p class="proj-index">/03</p>
-          <h2 class="proj-title">火鍋の店</h2>
-          <p class="proj-tagline">仕入れから会計まで、火鍋店を経営する2D接客ゲーム</p>
-          <p class="proj-desc">毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br><a href="https://github.com/take-2206/hotpot_game" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-          <a class="play-btn" href="https://hotpotgame1.vercel.app" target="_blank" rel="noopener noreferrer">▶ プレイする</a>
-        </div>
-      </div>
-      <div class="proj-detail has-gallery">
-        <div class="proj-detail-concept">
-          <span class="proj-detail-label">PROJECT | P/03 — UXフロー</span>
-          <div class="concept-col">
-            <div class="concept-block">
-              <h3 class="proj-detail-title">1日の流れ</h3>
-              <p>スタート画面から、仕入れ・開店・接客・会計・1日の終了までを繰り返します。毎日仕入れてから開店するため、仕入れすぎると資金不足、少なすぎると食材切れになります。</p>
+        <div class="proj-detail has-gallery">
+          <div class="proj-detail-concept">
+            <span class="proj-detail-label">PROJECT | P/02</span>
+            <div class="concept-col">
+              <div class="concept-block">
+                <h3 class="proj-detail-title">コンセプト</h3>
+                <p>
+                  旬の花を中心に、季節感と個性を大切にした花束を提案しています。花を贈る人と受け取る人、それぞれの気持ちが伝わるよう、色づかいや包み方までデザインしました。
+                </p>
+              </div>
+              <div class="concept-block">
+                <h3 class="proj-detail-title">カラー</h3>
+                <img
+                  src="img/project/color.png"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Floral Joy Shopのカラーパレット"
+                  style="width: 100%; max-width: 200px; margin-top: 0.5rem"
+                />
+              </div>
+            </div>
+            <div class="concept-col">
+              <div class="concept-block">
+                <h3 class="proj-detail-title">ターゲット</h3>
+                <p>20〜40代を中心とした、特別な日に花を贈りたい人。</p>
+                <p>
+                  Web:
+                  <a
+                    href="https://fj-shop.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >fj-shop.vercel.app</a
+                  >
+                </p>
+              </div>
             </div>
           </div>
-          <div class="concept-col">
-            <div class="concept-block">
-              <h3 class="proj-detail-title">サブ画面</h3>
-              <p>あそびかた、設定、レシピメモ、月別の売上、やり直しの確認などを用意しています。ゲーム中は一時停止や早めの閉店もできます。</p>
+          <div class="proj-gallery">
+            <div class="gallery-item g1">
+              <img
+                src="./img/project/flower.webp"
+                loading="lazy"
+                decoding="async"
+                alt="季節の花束のクローズアップ"
+              />
+            </div>
+            <div class="gallery-item g2">
+              <img
+                src="./img/project/flower-box.webp"
+                loading="lazy"
+                decoding="async"
+                alt="花束を入れたギフトボックスと名刺"
+              />
+            </div>
+            <div class="gallery-item g3">
+              <img
+                src="./img/project/fj-web.webp"
+                loading="lazy"
+                decoding="async"
+                alt="Floral Joy Shopのウェブサイト（PCとスマートフォン表示）"
+              />
             </div>
           </div>
         </div>
-        <div class="proj-gallery stack">
-          <div class="gallery-item"><img src="./img/project/hotpot-ux-core.webp" loading="lazy" decoding="async" alt="火鍋の店のUXフロー：コア（1日の流れ）"></div>
-          <div class="gallery-item"><img src="./img/project/hotpot-ux-meta.webp" loading="lazy" decoding="async" alt="火鍋の店のUXフロー：メタ（サブ画面）"></div>
+        <div class="proj-detail has-gallery ux-images-only">
+          <div class="proj-gallery single">
+            <div class="gallery-item">
+              <img
+                src="./img/project/floral-ux-flow.pdf"
+                loading="lazy"
+                decoding="async"
+                alt="Floral Joy ShopのUXフロー（トップ画面・商品一覧・ご利用の流れ・配送／店舗受け取りの入力画面）"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- Project 2: ナイムン店 -->
-    <article class="proj">
-      <div class="proj-cover alt naimu" style="background:#173B4A">
-        <span class="side-label">PROJECT&nbsp;|&nbsp;P/04</span>
-        <div class="proj-cover-img">
-          <img src="./img/project/naimu-bg.webp" loading="lazy" decoding="async" alt="ナイムン店">
+      <!-- Project 1b: 火鍋の店 (Hot-Pot Game) -->
+      <article class="proj">
+        <div class="proj-cover has-img half-bg">
+          <span class="side-label">PROJECT&nbsp;|&nbsp;P/03</span>
+          <div class="proj-cover-img">
+            <img
+              src="./img/project/hotpot-bg.webp"
+              loading="lazy"
+              decoding="async"
+              alt="火鍋の店のゲーム画面イメージ"
+            />
+          </div>
+          <div class="proj-cover-text">
+            <p class="proj-index">/03</p>
+            <h2 class="proj-title">火鍋の店</h2>
+            <p class="proj-tagline">
+              仕入れから会計まで、火鍋店を経営する2D接客ゲーム
+            </p>
+            <p class="proj-desc">
+              毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br /><a
+                href="https://github.com/take-2206/hotpot_game"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              >
+            </p>
+            <a
+              class="play-btn"
+              href="https://hotpotgame1.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              >▶ プレイする</a
+            >
+          </div>
         </div>
-        <div class="proj-cover-text">
-          <p class="proj-index">/04</p>
-          <h2 class="proj-title">ナイムン店</h2>
-          <p class="proj-tagline">沖縄のドライフルーツ</p>
-          <p class="proj-desc">ナイムンは、沖縄のトロピカルフルーツを使用したドライフルーツブランドです。「ナイムン」は沖縄の方言で「果物」を意味します。期間限定のポップアップストアでは、ドライフルーツやフルーツティーを通して、沖縄ならではの新しい味わいを提案しました。</p>
+        <div class="proj-detail has-gallery">
+          <div class="proj-detail-concept">
+            <span class="proj-detail-label">PROJECT | P/03 — UXフロー</span>
+            <div class="concept-col">
+              <div class="concept-block">
+                <h3 class="proj-detail-title">1日の流れ</h3>
+                <p>
+                  スタート画面から、仕入れ・開店・接客・会計・1日の終了までを繰り返します。毎日仕入れてから開店するため、仕入れすぎると資金不足、少なすぎると食材切れになります。
+                </p>
+              </div>
+            </div>
+            <div class="concept-col">
+              <div class="concept-block">
+                <h3 class="proj-detail-title">サブ画面</h3>
+                <p>
+                  あそびかた、設定、レシピメモ、月別の売上、やり直しの確認などを用意しています。ゲーム中は一時停止や早めの閉店もできます。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-gallery stack">
+            <div class="gallery-item">
+              <img
+                src="./img/project/hotpot-ux-core.webp"
+                loading="lazy"
+                decoding="async"
+                alt="火鍋の店のUXフロー：コア（1日の流れ）"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="./img/project/hotpot-ux-meta.webp"
+                loading="lazy"
+                decoding="async"
+                alt="火鍋の店のUXフロー：メタ（サブ画面）"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- Project 3: craft beer -->
-    <article class="proj">
-      <div class="proj-cover alt has-img">
-        <span class="side-label">PROJECT&nbsp;|&nbsp;P/05</span>
-        <div class="proj-cover-img">
-          <img src="./img/project/logo.webp" loading="lazy" decoding="async" alt="craft beer">
+      <!-- Project 2: ナイムン店 -->
+      <article class="proj">
+        <div class="proj-cover alt naimu" style="background: #173b4a">
+          <span class="side-label">PROJECT&nbsp;|&nbsp;P/04</span>
+          <div class="proj-cover-img">
+            <img
+              src="./img/project/naimu-bg.webp"
+              loading="lazy"
+              decoding="async"
+              alt="ナイムン店"
+            />
+          </div>
+          <div class="proj-cover-text">
+            <p class="proj-index">/04</p>
+            <h2 class="proj-title">ナイムン店</h2>
+            <p class="proj-tagline">沖縄のドライフルーツ</p>
+            <p class="proj-desc">
+              ナイムンは、沖縄のトロピカルフルーツを使用したドライフルーツブランドです。「ナイムン」は沖縄の方言で「果物」を意味します。期間限定のポップアップストアでは、ドライフルーツやフルーツティーを通して、沖縄ならではの新しい味わいを提案しました。
+            </p>
+          </div>
         </div>
-        <div class="proj-cover-text">
-          <p class="proj-index">/05</p>
-          <h2 class="proj-title">Craft Beer</h2>
-          <p class="proj-tagline">今日の疲れを、月明かりと一杯に。</p>
-          <p class="proj-desc">フルーツを使ったクラフトビールブランドのロゴデザインです。チェリー、メロン、レモンなど、それぞれのフレーバーを直感的に感じられるよう、フルーツのモチーフとタイポグラフィを組み合わせました。ポップで親しみやすい印象を持たせながらも、クラフト感のある手描きタッチを取り入れています。</p>
+      </article>
+
+      <!-- Project 3: craft beer -->
+      <article class="proj">
+        <div class="proj-cover alt has-img">
+          <span class="side-label">PROJECT&nbsp;|&nbsp;P/05</span>
+          <div class="proj-cover-img">
+            <img
+              src="./img/project/logo.webp"
+              loading="lazy"
+              decoding="async"
+              alt="craft beer"
+            />
+          </div>
+          <div class="proj-cover-text">
+            <p class="proj-index">/05</p>
+            <h2 class="proj-title">Craft Beer</h2>
+            <p class="proj-tagline">今日の疲れを、月明かりと一杯に。</p>
+            <p class="proj-desc">
+              フルーツを使ったクラフトビールブランドのロゴデザインです。チェリー、メロン、レモンなど、それぞれのフレーバーを直感的に感じられるよう、フルーツのモチーフとタイポグラフィを組み合わせました。ポップで親しみやすい印象を持たせながらも、クラフト感のある手描きタッチを取り入れています。
+            </p>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- Project 4: poster -->
-    <article class="proj">
-      <div class="proj-cover alt naimu poster">
-        <span class="side-label">PROJECT&nbsp;|&nbsp;P/06</span>
-        <div class="proj-cover-img">
-          <img src="./img/project/poster.webp" loading="lazy" decoding="async" alt="poster">
+      <!-- Project 4: poster -->
+      <article class="proj">
+        <div class="proj-cover alt naimu poster">
+          <span class="side-label">PROJECT&nbsp;|&nbsp;P/06</span>
+          <div class="proj-cover-img">
+            <img
+              src="./img/project/poster.webp"
+              loading="lazy"
+              decoding="async"
+              alt="poster"
+            />
+          </div>
+          <div class="proj-cover-text">
+            <p class="proj-index">/06</p>
+            <h2 class="proj-title">Poster</h2>
+            <p class="proj-desc">
+              今回のポスター展のテーマは「オノマトペ」で、季節の思い出を表現することでした。私たちはその中から夏を題材に選びました。<br />日本の夏といえば花火が思い浮かびます。夜空を見上げる少女の姿を通して、「日常の中にある小さな幸せや一瞬の輝きを大切にしてほしい」というメッセージを表現しています。その儚い瞬間も心に刻むことで、永遠の思い出になると考えました。ポスターを通して、あなた自身の大切な“夏の一瞬”を見つけてもらえれば嬉しいです。
+            </p>
+          </div>
         </div>
-        <div class="proj-cover-text">
-          <p class="proj-index">/06</p>
-          <h2 class="proj-title">Poster</h2>
-          <p class="proj-desc">今回のポスター展のテーマは「オノマトペ」で、季節の思い出を表現することでした。私たちはその中から夏を題材に選びました。<br>日本の夏といえば花火が思い浮かびます。夜空を見上げる少女の姿を通して、「日常の中にある小さな幸せや一瞬の輝きを大切にしてほしい」というメッセージを表現しています。その儚い瞬間も心に刻むことで、永遠の思い出になると考えました。ポスターを通して、あなた自身の大切な“夏の一瞬”を見つけてもらえれば嬉しいです。</p>
+      </article>
+
+      <!-- 4. Contact -->
+      <section id="contact" class="card">
+        <div class="page-inner">
+          <p class="eyebrow">お問い合わせ</p>
+          <h1>お気軽にご連絡ください。</h1>
+          <hr class="divider" />
+          <div class="contact-item">
+            <span>Email</span
+            ><a href="mailto:lengocthanhtruc09@gmail.com"
+              >lengocthanhtruc09@gmail.com</a
+            >
+          </div>
+          <div class="contact-item">
+            <span>GitHub</span>
+            <a
+              href="https://github.com/take-2206"
+              target="_blank"
+              rel="noopener noreferrer"
+              >github.com/take-2206</a
+            >
+          </div>
         </div>
-      </div>
-    </article>
+      </section>
+    </main>
 
-    <!-- 4. Contact -->
-    <section id="contact" class="card">
-      <div class="page-inner">
-        <p class="eyebrow">お問い合わせ</p>
-        <h1>お気軽にご連絡ください。</h1>
-        <hr class="divider">
-        <div class="contact-item"><span>Email</span><a href="mailto:lengocthanhtruc09@gmail.com">lengocthanhtruc09@gmail.com</a></div>
-        <div class="contact-item">
-          <span>GitHub</span>
-          <a href="https://github.com/take-2206" target="_blank" rel="noopener noreferrer">github.com/take-2206</a>
-        </div>
-      </div>
-    </section>
-  </main>
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <img src="" alt="" />
+    </div>
 
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <img src="" alt="">
-</div>
+    <script>
+      const topbar = document.getElementById("topbar");
+      const main = document.getElementById("main");
+      const logoBtn = document.getElementById("logoBtn");
+      const navButtons = document.querySelectorAll("[data-page]");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const scrollBehavior = reduceMotion ? "auto" : "smooth";
 
-<script>
-  const topbar = document.getElementById('topbar');
-  const main = document.getElementById('main');
-  const logoBtn = document.getElementById('logoBtn');
-  const navButtons = document.querySelectorAll('[data-page]');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
+      /* Tất cả các card theo đúng thứ tự trên trang */
+      function allCards() {
+        return Array.from(
+          document.querySelectorAll(
+            "#hero, #about, #work, .proj-cover, .proj-detail, #contact",
+          ),
+        );
+      }
 
-  /* Tất cả các card theo đúng thứ tự trên trang */
-  function allCards(){
-    return Array.from(document.querySelectorAll('#hero, #about, #work, .proj-cover, .proj-detail, #contact'));
-  }
-
-  /* Vị trí cuộn để một card vừa "dính" vào dưới thanh menu.
+      /* Vị trí cuộn để một card vừa "dính" vào dưới thanh menu.
      Card đang dính có vị trí hiển thị cố định, nên tính từ tổng chiều cao các card phía trước. */
-  function scrollTargetFor(target){
-    let y = main.getBoundingClientRect().top + window.scrollY;
-    for (const c of allCards()){
-      if (c === target) break;
-      y += c.offsetHeight + (parseFloat(getComputedStyle(c).marginBottom) || 0);
-    }
-    return Math.max(0, y - topbar.offsetHeight);
-  }
+      function scrollTargetFor(target) {
+        let y = main.getBoundingClientRect().top + window.scrollY;
+        for (const c of allCards()) {
+          if (c === target) break;
+          y +=
+            c.offsetHeight +
+            (parseFloat(getComputedStyle(c).marginBottom) || 0);
+        }
+        return Math.max(0, y - topbar.offsetHeight);
+      }
 
-  function goTo(id){
-    const el = document.getElementById(id);
-    if (!el) return;
-    window.scrollTo({ top: scrollTargetFor(el), behavior: scrollBehavior });
-  }
+      function goTo(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        window.scrollTo({ top: scrollTargetFor(el), behavior: scrollBehavior });
+      }
 
-  navButtons.forEach(btn => btn.addEventListener('click', () => goTo(btn.dataset.page)));
-  logoBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: scrollBehavior }));
+      navButtons.forEach((btn) =>
+        btn.addEventListener("click", () => goTo(btn.dataset.page)),
+      );
+      logoBtn.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: scrollBehavior }),
+      );
 
-  /* Tô sáng mục menu hiện tại: card cuối cùng (About / My Work / Contact) đã chạm thanh menu */
-  const tracked = ['about', 'work', 'contact'].map(id => document.getElementById(id));
-  const pageButtons = document.querySelectorAll('#pageNav button');
-  let ticking = false;
+      /* Tô sáng mục menu hiện tại: card cuối cùng (About / My Work / Contact) đã chạm thanh menu */
+      const tracked = ["about", "work", "contact"].map((id) =>
+        document.getElementById(id),
+      );
+      const pageButtons = document.querySelectorAll("#pageNav button");
+      let ticking = false;
 
-  function updateActive(){
-    const line = topbar.offsetHeight + 4;
-    let current = '';
-    tracked.forEach(el => { if (el.getBoundingClientRect().top <= line) current = el.id; });
-    pageButtons.forEach(b => {
-      if (b.dataset.page === current) b.setAttribute('aria-current', 'page');
-      else b.removeAttribute('aria-current');
-    });
-    ticking = false;
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking){ ticking = true; requestAnimationFrame(updateActive); }
-  }, { passive: true });
-  window.addEventListener('resize', updateActive);
-  updateActive();
+      function updateActive() {
+        const line = topbar.offsetHeight + 4;
+        let current = "";
+        tracked.forEach((el) => {
+          if (el.getBoundingClientRect().top <= line) current = el.id;
+        });
+        pageButtons.forEach((b) => {
+          if (b.dataset.page === current)
+            b.setAttribute("aria-current", "page");
+          else b.removeAttribute("aria-current");
+        });
+        ticking = false;
+      }
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateActive);
+          }
+        },
+        { passive: true },
+      );
+      window.addEventListener("resize", updateActive);
+      updateActive();
 
-  /* Lightbox: bấm ảnh gallery để phóng to, bấm lần nữa hoặc nhấn Esc để đóng */
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
+      /* Lightbox: bấm ảnh gallery để phóng to, bấm lần nữa hoặc nhấn Esc để đóng */
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = lightbox.querySelector("img");
 
-  function openLightbox(img){
-    lightboxImg.src = img.currentSrc || img.src;
-    lightboxImg.alt = img.alt;
-    lightbox.classList.add('is-open');
-    lightbox.setAttribute('aria-hidden', 'false');
-  }
-  function closeLightbox(){
-    lightbox.classList.remove('is-open');
-    lightbox.setAttribute('aria-hidden', 'true');
-  }
+      function openLightbox(img) {
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("is-open");
+        lightbox.setAttribute("aria-hidden", "false");
+      }
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightbox.setAttribute("aria-hidden", "true");
+      }
 
-  document.querySelectorAll('.gallery-item img').forEach(img => {
-    img.addEventListener('click', () => openLightbox(img));
-  });
-  lightbox.addEventListener('click', closeLightbox);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
-</body>
+      document.querySelectorAll(".gallery-item img").forEach((img) => {
+        img.addEventListener("click", () => openLightbox(img));
+      });
+      lightbox.addEventListener("click", closeLightbox);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+      });
+    </script>
+  </body>
 </html>
