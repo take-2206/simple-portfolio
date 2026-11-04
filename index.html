@@ -447,8 +447,8 @@
   .proj-detail-concept p{ font-size:0.88rem; line-height:1.9; opacity:0.85; max-width:none; margin:0 0 0.5rem; }
   .proj-gallery{
     display:grid;
-    grid-template-columns:1fr 1.6fr;
-    grid-template-rows:calc((var(--card-h) - 25rem) / 2) calc((var(--card-h) - 25rem) / 2);  /* hai hàng ảnh chia đều phần còn lại của card */
+    grid-template-columns:repeat(3, 1fr);
+    grid-template-rows:calc(var(--card-h) - 25rem);  /* ba ô ảnh cùng kích thước, chia đều theo chiều ngang */
     gap:10px;
     min-height:0;
     /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
@@ -475,8 +475,8 @@
     object-fit:contain; border-radius:0.5rem;
   }
   .gallery-item.g1{ grid-column:1; grid-row:1; }
-  .gallery-item.g2{ grid-column:1; grid-row:2; }
-  .gallery-item.g3{ grid-column:2; grid-row:1 / span 2; }
+  .gallery-item.g2{ grid-column:2; grid-row:1; }
+  .gallery-item.g3{ grid-column:3; grid-row:1; }
   @media (max-width:760px){
     .proj-detail.has-gallery{ grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr); }
     .proj-detail-concept{ grid-template-columns:1fr; gap:1rem; padding:1.4rem 1.6rem 1rem; max-height:50dvh; overflow-y:auto; }
@@ -490,7 +490,7 @@
     .proj-gallery.stack{ grid-template-columns:1fr; }
     .proj-gallery.stack .gallery-item img{ height:calc((var(--card-h) - 19rem) / 2); }
   }
-  @media (max-width:760px){ .proj-gallery{ grid-template-rows:200px 200px; } }
+  @media (max-width:760px){ .proj-gallery:not(.stack){ grid-template-columns:1fr; grid-template-rows:repeat(3, 200px); } }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
     min-height:0;
