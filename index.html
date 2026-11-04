@@ -231,9 +231,21 @@
   .skill-list li{
     font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
     font-size:0.85rem; color:var(--ink);
-    padding:0.4rem 0.9rem;
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding:0.35rem 0.9rem 0.35rem 0.35rem;
     border:1px solid var(--line); border-radius:999px;
   }
+  /* Ô chữ viết tắt với màu thương hiệu */
+  .skill-badge{
+    display:inline-grid; place-items:center;
+    width:1.9rem; height:1.9rem; border-radius:50%;
+    font-size:0.72rem; font-weight:700; letter-spacing:0.02em;
+    color:#2E2624;
+  }
+  .badge-ai{ background:#FF9A00; }
+  .badge-ps{ background:#31A8FF; }
+  .badge-ae{ background:#9999FF; }
+  .badge-code{ background:var(--accent); color:var(--paper); }
 
   /* ---------- Work: card tiêu đề + các card dự án ---------- */
   .work-intro .page-inner{ text-align:center; }
@@ -515,10 +527,10 @@
           <div class="skills">
             <p class="skills-label">スキル</p>
             <ul class="skill-list">
-              <li>Adobe Illustrator</li>
-              <li>Adobe Photoshop</li>
-              <li>Adobe After Effects</li>
-              <li>コーディング（HTML / CSS / JavaScript）</li>
+              <li><span class="skill-badge badge-ai">Ai</span>Adobe Illustrator</li>
+              <li><span class="skill-badge badge-ps">Ps</span>Adobe Photoshop</li>
+              <li><span class="skill-badge badge-ae">Ae</span>Adobe After Effects</li>
+              <li><span class="skill-badge badge-code">&lt;/&gt;</span>コーディング（HTML / CSS / JavaScript）</li>
             </ul>
           </div>
         </div>
