@@ -492,9 +492,10 @@
   }
   @media (max-width:760px){ .proj-gallery:not(.stack):not(.single){ grid-template-columns:1fr; grid-template-rows:repeat(3, 200px); } }
   /* Gallery một ảnh rộng (UX flow): ảnh chiếm trọn khung, giữ đúng tỉ lệ */
-  .proj-gallery.single{ grid-template-columns:1fr; grid-template-rows:auto; align-content:center; padding-top:2rem; padding-bottom:2rem; }
+  .proj-gallery.single{ grid-template-columns:1fr; grid-template-rows:auto; justify-items:center; align-content:center; padding-top:2rem; padding-bottom:2rem; }
   .proj-gallery.single .gallery-item{ background:none; overflow:visible; }
-  .proj-gallery.single .gallery-item img{ width:100%; height:auto; border-radius:0; }
+  /* ảnh vừa khung và vừa chiều cao màn hình, giữ đúng tỉ lệ, không bị cắt */
+  .proj-gallery.single .gallery-item img{ display:block; width:auto; height:auto; max-width:100%; max-height:calc(var(--card-h) - 6rem); border-radius:0; }
   /* UX flow chỉ có ảnh, không có chữ: card ôm sát ảnh */
   .proj-detail.ux-images-only{ grid-template-rows:auto; }
   .proj-detail-img{
