@@ -490,7 +490,11 @@
     .proj-gallery.stack{ grid-template-columns:1fr; }
     .proj-gallery.stack .gallery-item img{ height:calc((var(--card-h) - 19rem) / 2); }
   }
-  @media (max-width:760px){ .proj-gallery:not(.stack){ grid-template-columns:1fr; grid-template-rows:repeat(3, 200px); } }
+  @media (max-width:760px){ .proj-gallery:not(.stack):not(.single){ grid-template-columns:1fr; grid-template-rows:repeat(3, 200px); } }
+  /* Gallery một ảnh rộng (UX flow): ảnh chiếm trọn khung, giữ đúng tỉ lệ */
+  .proj-gallery.single{ grid-template-columns:1fr; grid-template-rows:minmax(0,1fr); }
+  .proj-gallery.single .gallery-item{ background:none; }
+  .proj-gallery.single .gallery-item img{ width:100%; height:100%; }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
     min-height:0;
@@ -629,6 +633,20 @@
           <div class="gallery-item g1"><img src="./img/project/flower.webp" loading="lazy" decoding="async" alt="季節の花束のクローズアップ"></div>
           <div class="gallery-item g2"><img src="./img/project/flower-box.webp" loading="lazy" decoding="async" alt="花束を入れたギフトボックスと名刺"></div>
           <div class="gallery-item g3"><img src="./img/project/fj-web.webp" loading="lazy" decoding="async" alt="Floral Joy Shopのウェブサイト（PCとスマートフォン表示）"></div>
+        </div>
+      </div>
+      <div class="proj-detail has-gallery">
+        <div class="proj-detail-concept">
+          <span class="proj-detail-label">PROJECT | P/02 — UXフロー</span>
+          <div class="concept-col">
+            <div class="concept-block">
+              <h3 class="proj-detail-title">購入の流れ</h3>
+              <p>トップ画面から、S / M / Lのサイズから選べる商品一覧へ進みます。ご利用の流れを確認したあと、自宅への配送か店舗での受け取りかを選ぶ流れです。</p>
+            </div>
+          </div>
+        </div>
+        <div class="proj-gallery single">
+          <div class="gallery-item"><img src="./img/project/floral-ux-flow.png" loading="lazy" decoding="async" alt="Floral Joy ShopのUXフロー（トップ画面・商品一覧・ご利用の流れ・配送／店舗受け取りの入力画面）"></div>
         </div>
       </div>
     </article>
