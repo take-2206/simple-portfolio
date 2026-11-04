@@ -443,6 +443,9 @@
     .concept-block + .concept-block{ margin-top:1rem; }
     .proj-gallery{ padding:0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
   }
+  .proj-gallery.stack{ grid-template-columns:1fr; grid-template-rows:auto; gap:1.6rem; }
+  .proj-gallery.stack .gallery-item{ height:auto; background:none; }
+  .proj-gallery.stack .gallery-item img{ height:auto; object-fit:contain; border-radius:12px; }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
     min-height:0;
@@ -597,6 +600,27 @@
           <h2 class="proj-title">火鍋の店</h2>
           <p class="proj-tagline">仕入れから会計まで、火鍋店を経営する2D接客ゲーム</p>
           <p class="proj-desc">毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br><a href="https://hotpotgame1.vercel.app" target="_blank" rel="noopener noreferrer">プレイする</a> ／ <a href="https://github.com/take-2206/hotpot_game" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        </div>
+      </div>
+      <div class="proj-detail has-gallery">
+        <div class="proj-detail-concept">
+          <span class="proj-detail-label">PROJECT | P/03 — UXフロー</span>
+          <div class="concept-col">
+            <div class="concept-block">
+              <h3 class="proj-detail-title">1日の流れ</h3>
+              <p>スタート画面から、仕入れ・開店・接客・会計・1日の終了までを繰り返します。毎日仕入れてから開店するため、仕入れすぎると資金不足、少なすぎると食材切れになります。</p>
+            </div>
+          </div>
+          <div class="concept-col">
+            <div class="concept-block">
+              <h3 class="proj-detail-title">サブ画面</h3>
+              <p>あそびかた、設定、レシピメモ、月別の売上、やり直しの確認などを用意しています。ゲーム中は一時停止や早めの閉店もできます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="proj-gallery stack">
+          <div class="gallery-item"><img src="./img/project/hotpot-ux-core.png" alt="火鍋の店のUXフロー：コア（1日の流れ）"></div>
+          <div class="gallery-item"><img src="./img/project/hotpot-ux-meta.png" alt="火鍋の店のUXフロー：メタ（サブ画面）"></div>
         </div>
       </div>
     </article>
