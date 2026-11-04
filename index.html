@@ -343,8 +343,8 @@
     inset:0;
     background:linear-gradient(270deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 100%);
   }
-  /* Poster: đẩy khối chữ sang trái thêm một chút (tăng/giảm số này) */
-  .proj-cover.poster .proj-cover-text{ margin-right:20rem; }
+  /* Poster: đặt khối chữ bắt đầu ngay sau mép phải của tấm poster (tăng/giảm % này để chỉnh) */
+  .proj-cover.poster .proj-cover-text{ margin-left:53%; margin-right:0; }
   @media (max-width:760px){
     .proj-cover.naimu{ align-items:flex-end; justify-content:flex-start; }
     .proj-cover.naimu .proj-cover-text{
@@ -355,7 +355,7 @@
     .proj-cover.naimu .proj-cover-img::after{
       background:linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.1) 100%);
     }
-    .proj-cover.poster .proj-cover-text{ margin-right:0; }
+    .proj-cover.poster .proj-cover-text{ margin-left:0; margin-right:0; }
   }
 
   /* ---------- Chi tiết dự án ---------- */
