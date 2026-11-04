@@ -318,6 +318,24 @@
     max-width:450ch;
   }
 
+  /* Nút chơi thử nổi bật trên bìa game */
+  .play-btn{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    margin-top:1.2rem; padding:0.75rem 1.7rem;
+    border-radius:999px;
+    background:var(--accent); color:var(--paper);
+    font-family:'Hiragino Sans','Noto Sans JP',-apple-system,sans-serif;
+    font-size:0.95rem; font-weight:600; letter-spacing:0.03em;
+    text-decoration:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .play-btn:hover, .play-btn:focus-visible{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
+  }
+  .play-btn:focus-visible{ outline:2px solid var(--accent-soft); outline-offset:3px; }
+
   /* Bìa có ảnh: ảnh nằm cột trái, tràn sát mép trái/trên/dưới */
   .proj-cover.has-img{
     display:grid;
@@ -604,7 +622,8 @@
           <p class="proj-index">/03</p>
           <h2 class="proj-title">火鍋の店</h2>
           <p class="proj-tagline">仕入れから会計まで、火鍋店を経営する2D接客ゲーム</p>
-          <p class="proj-desc">毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br><a href="https://hotpotgame1.vercel.app" target="_blank" rel="noopener noreferrer">プレイする</a> ／ <a href="https://github.com/take-2206/hotpot_game" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+          <p class="proj-desc">毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br><a href="https://github.com/take-2206/hotpot_game" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+          <a class="play-btn" href="https://hotpotgame1.vercel.app" target="_blank" rel="noopener noreferrer">▶ プレイする</a>
         </div>
       </div>
       <div class="proj-detail has-gallery">
