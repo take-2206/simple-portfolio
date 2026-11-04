@@ -469,9 +469,13 @@
     .concept-block + .concept-block{ margin-top:1rem; }
     .proj-gallery{ padding:0 1.6rem calc(3.6rem + env(safe-area-inset-bottom, 0px)); }
   }
-  .proj-gallery.stack{ grid-template-columns:1fr; grid-template-rows:auto; gap:1.6rem; min-height:auto; align-content:start; }
+  .proj-gallery.stack{ grid-template-columns:1fr 1fr; grid-template-rows:auto; gap:1.2rem; min-height:auto; align-content:start; }
   .proj-gallery.stack .gallery-item{ height:auto; min-height:auto; overflow:visible; background:none; }
-  .proj-gallery.stack .gallery-item img{ display:block; margin:0 auto; width:auto; max-width:100%; height:calc((var(--card-h) - 19rem) / 2); object-fit:contain; border-radius:12px; }
+  .proj-gallery.stack .gallery-item img{ display:block; margin:0 auto; width:auto; max-width:100%; height:calc(var(--card-h) - 19rem); object-fit:contain; border-radius:12px; }
+  @media (max-width:760px){
+    .proj-gallery.stack{ grid-template-columns:1fr; }
+    .proj-gallery.stack .gallery-item img{ height:calc((var(--card-h) - 19rem) / 2); }
+  }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
     min-height:0;
