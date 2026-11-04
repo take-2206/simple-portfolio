@@ -448,7 +448,7 @@
   .proj-gallery{
     display:grid;
     grid-template-columns:1fr 1.6fr;
-    grid-template-rows:260px 260px;
+    grid-template-rows:calc((var(--card-h) - 25rem) / 2) calc((var(--card-h) - 25rem) / 2);  /* hai hàng ảnh chia đều phần còn lại của card */
     gap:10px;
     min-height:0;
     /* chừa lề hai bên và khoảng trống phía dưới để xem trọn ảnh */
@@ -476,6 +476,7 @@
     .proj-gallery.stack{ grid-template-columns:1fr; }
     .proj-gallery.stack .gallery-item img{ height:calc((var(--card-h) - 19rem) / 2); }
   }
+  @media (max-width:760px){ .proj-gallery{ grid-template-rows:200px 200px; } }
   .proj-detail-img{
     background:linear-gradient(160deg, var(--accent-soft), var(--line));
     min-height:0;
