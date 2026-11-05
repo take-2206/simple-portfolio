@@ -6,6 +6,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
+    <meta name="color-scheme" content="only light" />
+    <meta name="theme-color" content="#fbf5f4" />
     <title>Le Ngoc Thanh Truc | Portfolio</title>
     <meta
       name="description"
@@ -25,6 +27,7 @@
       }
 
       :root {
+        color-scheme: light; /* luôn giữ màu sáng, không đổi theo chế độ tối của hệ thống */
         --paper: #fbf5f4;
         --ink: #2e2624;
         --line: #e3c9cb;
@@ -38,22 +41,6 @@
         :root {
           --card-h: calc(100dvh - var(--bar));
         }
-      }
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --paper: #231c1b;
-          --ink: #f1e4e2;
-          --line: #5b3e42;
-          --accent: #d998a2;
-          --accent-soft: #3b2a2c;
-        }
-      }
-      :root[data-theme="dark"] {
-        --paper: #231c1b;
-        --ink: #f1e4e2;
-        --line: #5b3e42;
-        --accent: #d998a2;
-        --accent-soft: #3b2a2c;
       }
       * {
         box-sizing: border-box;
@@ -954,8 +941,25 @@
         width: auto;
         height: auto;
         max-width: 100%;
-        max-height: calc(var(--card-h) - 6rem);
+        max-height: calc(var(--card-h) - 8rem);
         border-radius: 0;
+      }
+      /* link xem website thật, nằm ngay dưới ảnh UX flow */
+      .proj-gallery.single .ux-link {
+        margin: 0.9rem 0 0;
+        text-align: center;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+      }
+      .proj-gallery.single .ux-link a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
       }
       /* UX flow chỉ có ảnh, không có chữ: card ôm sát ảnh */
       .proj-detail.ux-images-only {
@@ -1138,7 +1142,7 @@
             <p class="proj-index">/01</p>
             <h2 class="proj-title">Floral Joy Shop</h2>
             <p class="proj-desc">
-              季節の花々と個性あふれる花束を通して、大切な人へ「よろこび」を届けるフラワーショップ。花を贈る人、受け取る人、そのどちらにも心温まる体験を届けることをコンセプトとしています。
+              季節の花々と個性あふれる花束を通して、大切な人へ「よろこび」を届けるフラワーショップ。花を贈る人、受け取る人、そのどちらにも心温まる体験を提供することをコンセプトとしています。
             </p>
           </div>
         </div>
@@ -1210,12 +1214,21 @@
           <div class="proj-gallery single">
             <div class="gallery-item">
               <img
-                src="./img/project/floral-ux-flow.pdf"
+                src="./img/project/floral-joy-ux-flow.png"
                 loading="lazy"
                 decoding="async"
-                alt="Floral Joy ShopのUXフロー（トップ画面・商品一覧・ご利用の流れ・配送／店舗受け取りの入力画面）"
+                alt="Floral Joy ShopのUXフロー（トップ画面・商品一覧・店舗受け取り／配送の注文画面・ご利用の流れ）"
               />
             </div>
+            <p class="ux-link">
+              Web:
+              <a
+                href="https://fj-shop.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >fj-shop.vercel.app</a
+              >
+            </p>
           </div>
         </div>
       </article>
@@ -1236,10 +1249,10 @@
             <p class="proj-index">/03</p>
             <h2 class="proj-title">火鍋の店</h2>
             <p class="proj-tagline">
-              仕入れから会計まで、火鍋店を経営する2D接客ゲーム
+              仕入れから会計まで、火鍋店を経営する<span style="white-space: nowrap">2D接客ゲーム</span>
             </p>
             <p class="proj-desc">
-              毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつりやQRで会計まで行います。ベトナム語・日本語・英語に対応しています。<br /><a
+              毎日食材を仕入れてから開店し、お客さんの注文どおりにスープ・麺・具を選んで提供します。制限時間内に接客し、現金のおつり計算やQRコード決済で、会計まで行います。ベトナム語・日本語・英語に対応しています。<br /><a
                 href="https://github.com/take-2206/hotpot_game"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1262,7 +1275,7 @@
               <div class="concept-block">
                 <h3 class="proj-detail-title">1日の流れ</h3>
                 <p>
-                  スタート画面から、仕入れ・開店・接客・会計・1日の終了までを繰り返します。毎日仕入れてから開店するため、仕入れすぎると資金不足、少なすぎると食材切れになります。
+                  ゲームを始めたら、仕入れ・開店・接客・会計・1日の終了までを毎日繰り返します。毎日仕入れてから開店するため、仕入れすぎると資金不足、仕入れが少なすぎると食材切れになります。
                 </p>
               </div>
             </div>
@@ -1334,7 +1347,7 @@
           <div class="proj-cover-text">
             <p class="proj-index">/05</p>
             <h2 class="proj-title">Craft Beer</h2>
-            <p class="proj-tagline">今日の疲れを、月明かりと一杯に。</p>
+            <p class="proj-tagline">今日の疲れを、月明かりと一杯で。</p>
             <p class="proj-desc">
               フルーツを使ったクラフトビールブランドのロゴデザインです。チェリー、メロン、レモンなど、それぞれのフレーバーを直感的に感じられるよう、フルーツのモチーフとタイポグラフィを組み合わせました。ポップで親しみやすい印象を持たせながらも、クラフト感のある手描きタッチを取り入れています。
             </p>
@@ -1358,7 +1371,7 @@
             <p class="proj-index">/06</p>
             <h2 class="proj-title">Poster</h2>
             <p class="proj-desc">
-              今回のポスター展のテーマは「オノマトペ」で、季節の思い出を表現することでした。私たちはその中から夏を題材に選びました。<br />日本の夏といえば花火が思い浮かびます。夜空を見上げる少女の姿を通して、「日常の中にある小さな幸せや一瞬の輝きを大切にしてほしい」というメッセージを表現しています。その儚い瞬間も心に刻むことで、永遠の思い出になると考えました。ポスターを通して、あなた自身の大切な“夏の一瞬”を見つけてもらえれば嬉しいです。
+              今回のポスター展のテーマは「オノマトペ」で、季節の思い出を表現することでした。私たちはその中から夏を題材に選びました。<br />日本の夏といえば花火が思い浮かびます。夜空を見上げる少女の姿を通して、「日常の中にある小さな幸せや一瞬の輝きを大切にしてほしい」というメッセージを表現しています。その儚い瞬間も心に刻むことで、永遠の思い出になると考えました。ポスターを通して、あなた自身の大切な「夏の一瞬」を見つけてもらえれば嬉しいです。
             </p>
           </div>
         </div>
