@@ -277,6 +277,37 @@
         line-height: 1.6;
         margin: 0;
       }
+      /* lời nhắn nhỏ: một dòng, góc dưới bên phải (đối xứng với tên bên trái) */
+      .hero-note {
+        position: absolute;
+        z-index: 1;
+        right: 1.8rem;
+        bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px));
+        margin: 0;
+        white-space: nowrap;
+        text-align: right;
+        font-family:
+          "Hiragino Sans",
+          "Noto Sans JP",
+          -apple-system,
+          sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.06em;
+        line-height: 1.6;
+        color: var(--ink);
+        opacity: 0.6;
+      }
+      /* màn hình hẹp: đặt phía trên tên để không chồng lên nhau, vẫn một dòng */
+      @media (max-width: 760px) {
+        .hero-note {
+          left: 1.8rem;
+          right: auto;
+          text-align: left;
+          bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
+          font-size: 0.68rem;
+          letter-spacing: 0.02em;
+        }
+      }
       .hero-nav {
         display: flex;
         gap: 0.6rem;
@@ -1057,6 +1088,9 @@
             <button type="button" data-page="contact">Contact</button>
           </div>
         </div>
+        <p class="hero-note">
+          最適な表示のため、パソコンでのご覧をおすすめします。
+        </p>
         <div class="hero-id">
           <p class="name">LE NGOC THANH TRUC</p>
           <p class="line">Design</p>
