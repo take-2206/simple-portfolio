@@ -297,15 +297,23 @@
         color: var(--ink);
         opacity: 0.6;
       }
-      /* màn hình hẹp: đặt phía trên tên để không chồng lên nhau, vẫn một dòng */
+      /* điện thoại: đặt ngay dưới 3 nút, căn giữa, vẫn một dòng */
       @media (max-width: 760px) {
         .hero-note {
-          left: 1.8rem;
+          position: relative;
           right: auto;
-          text-align: left;
-          bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
-          font-size: 0.68rem;
+          bottom: auto;
+          margin: 1.4rem 0 0;
+          padding: 0 1rem;
+          text-align: center;
+          font-size: 0.7rem;
           letter-spacing: 0.02em;
+        }
+      }
+      @media (max-width: 360px) {
+        .hero-note {
+          font-size: 0.62rem;
+          letter-spacing: 0;
         }
       }
       .hero-nav {
